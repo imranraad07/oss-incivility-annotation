@@ -1,0 +1,134 @@
+repo,login,year,url,title,reason,comment_count,num_issues,num_stars
+yuzu-emu/yuzu,bunnei,"""2020-05-11T07:03:21Z""","""https://github.com/yuzu-emu/yuzu/issues/3918""","""Animal Crossing: New Horizons Text not displaying correctly bug""","""too heated""",40,2257,4804
+LuaJIT/LuaJIT,MikePall,"""2021-04-12T09:22:45Z""","""https://github.com/LuaJIT/LuaJIT/issues/685""","""LUAJIT2.1 Memory More than 1g crash""","""too heated""",4,217,630
+MichalLytek/typegraphql-prisma,MichalLytek,"""2021-04-01T14:07:17Z""","""https://github.com/MichalLytek/typegraphql-prisma/issues/92""","""Prisma 2.20 -- \""path\"" argument must be of type string""","""too heated""",5,148,360
+EssentialsX/Essentials,JRoy,"""2020-09-28T12:05:01Z""","""https://github.com/EssentialsX/Essentials/issues/3690""","""worth/sell blocks does entire inventory instead of just blocks""","""too heated""",9,544,461
+Szymon-Jureczko/konwerter-ip,Szymon-Jureczko,"""2021-04-23T07:48:14Z""","""https://github.com/Szymon-Jureczko/konwerter-ip/issues/1""","""kod jest kradziony""","""too heated""",5,4,
+matrix-org/synapse,clokep,"""2019-10-17T14:59:20Z""","""https://github.com/matrix-org/synapse/issues/6211""","""Synapse uses TLS1.0 for smtp which is rejected by some mail servers""","""too heated""",26,1752,1927
+Repl-it-Coders/Repl.it-2020,StringentDev,"""2021-06-29T18:24:14Z""","""https://github.com/Repl-it-Coders/Repl.it-2020/issues/16""","""CSS styling""","""too heated""",78,11,10
+iNavFlight/inav,digitalentity,"""2021-03-03T19:55:59Z""","""https://github.com/iNavFlight/inav/issues/6663""","""matek F722 mini se,crazy baro in al inav version,too in 2.6.1 for micro quad nav modes""","""too heated""",28,770,422
+MichiganCOG/A2CL-PT,kylemin,"""2020-10-06T23:28:00Z""","""https://github.com/MichiganCOG/A2CL-PT/issues/4""","""Sharing model weights for Activity Net""","""too heated""",9,5,8
+Wechat-Group/WxJava,binarywang,"""2021-04-06T07:54:23Z""","""https://github.com/Wechat-Group/WxJava/issues/2069""","""微信小程序更新wx.getUserProfile，无法获取到小程序用户信息""","""too heated""",12,627,2743
+violentmonkey/violentmonkey,tophf,"""2021-03-14T06:54:28Z""","""https://github.com/violentmonkey/violentmonkey/issues/1226""","""Provide an API to use chrome.tabs.insertCSS""","""too heated""",7,274,901
+CaffeineMC/sodium-fabric,jellysquid3,"""2021-07-18T10:14:20Z""","""https://github.com/CaffeineMC/sodium-fabric/issues/773""","""Memory leak when loading chunks""","""too heated""",12,785,2133
+tenacityteam/tenacity,Semisol,"""2021-07-06T22:50:22Z""","""https://github.com/tenacityteam/tenacity/issues/99""","""Stepdown as Maintainer of this Fork""","""too heated""",14,364,4561
+Jint3x/git_experiments,Jint3x,"""2021-03-24T05:19:17Z""","""https://github.com/Jint3x/git_experiments/issues/5""","""Another one of my issues.""","""too heated""",4,39,
+tensorflow/tensorflow,rthadur,"""2015-11-09T17:41:26Z""","""https://github.com/tensorflow/tensorflow/issues/22""","""OpenCL support""","""too heated""",542,9522,12510
+sqlalchemy/sqlalchemy,zzzeek,"""2021-09-14T02:20:27Z""","""https://github.com/sqlalchemy/sqlalchemy/issues/7027""","""SQLite ORM `datetime` conversion interprets milliseconds as microseconds on reads""","""too heated""",11,1604,1568
+jostroOS/AmogOS,mobilegmYT,"""2021-07-12T19:26:49Z""","""https://github.com/jostroOS/AmogOS/issues/29""","""For issues regarding open source:""","""too heated""",7,61,327
+Roadhog360/Et-Futurum,Roadhog360,"""2021-04-27T22:27:47Z""","""https://github.com/Roadhog360/Et-Futurum/issues/34""","""Copper Blocks should only be registered to the OreDict when the Config makes their Recipe worth 9 Ingots.""","""too heated""",16,33,
+jostroOS/amogOS,F-fengzi,"""2021-07-12T19:26:49Z""","""https://github.com/jostroOS/amogOS/issues/29""","""For issues regarding open source:""","""too heated""",4,49,1135
+mrpond/BlockTheSpot,rednek46,"""2020-09-17T14:09:29Z""","""https://github.com/mrpond/BlockTheSpot/issues/71""","""recently played solved""","""too heated""",10,279,9001
+nextcloud/calendar,jospoortvliet,"""2017-10-11T23:07:55Z""","""https://github.com/nextcloud/calendar/issues/629""","""Default reminders configuration [$113]""","""too heated""",29,726,124
+nextcloud/calendar,jospoortvliet,"""2017-10-11T23:07:55Z""","""https://github.com/nextcloud/calendar/issues/629""","""Default reminders configuration [$113]""","""too heated""",29,726,124
+bitcoin-core/bitcoincore.org,laanwj,"""2021-01-21T18:17:18Z""","""https://github.com/bitcoin-core/bitcoincore.org/issues/746""","""Disappointing decision from core devs.""","""too heated""",10,49,119
+TheColin21/Formelsammlung-EB-Latex,TheColin21,"""2021-09-02T08:42:26Z""","""https://github.com/TheColin21/Formelsammlung-EB-Latex/issues/16""","""Zener Diode in Schaltung falsche Richtung""","""too heated""",8,37,
+open-source-uc/latex-templates,FarDust,"""2021-07-10T21:30:32Z""","""https://github.com/open-source-uc/latex-templates/issues/1""","""Centralizar o no centralizar: esa es la cuestión""","""too heated""",7,2,3
+relavis/VehiclesPlus,stijnb1234,"""2020-10-19T22:26:40Z""","""https://github.com/relavis/VehiclesPlus/issues/34""","""Custom Model Data Support""","""too heated""",14,13,
+pyca/cryptography,alex,"""2021-02-08T08:58:33Z""","""https://github.com/pyca/cryptography/issues/5771""","""Dependency on rust removes support for a number of platforms""","""too heated""",179,480,855
+mui-org/material-ui,eps1lon,"""2021-09-15T18:49:26Z""","""https://github.com/mui-org/material-ui/issues/28368""","""v5 Documentation site is broken""","""too heated""",22,4364,11936
+openai/gym,jkterry1,"""2021-07-27T17:33:35Z""","""https://github.com/openai/gym/issues/2259""","""Plans for Future Maintenance of Gym""","""too heated""",24,459,3324
+YTVanced/VancedManager,X1nto,"""2021-01-27T18:29:21Z""","""https://github.com/YTVanced/VancedManager/issues/388""","""BUG""","""too heated""",9,584,3690
+InfiniteFlightAirportEditing/Airports,brunocr1050,"""2020-06-15T07:11:33Z""","""https://github.com/InfiniteFlightAirportEditing/Airports/issues/5089""","""VEBD-Bagdogra-Airport-WEST BENGAL-INDIA""","""too heated""",7,4814,32
+freeCodeCamp/freeCodeCamp,moT01,"""2021-09-30T16:53:25Z""","""https://github.com/freeCodeCamp/freeCodeCamp/issues/43639""","""When selecting a language in the nav menu it opens in a new tab""","""too heated""",19,1424,23941
+RocketChat/Rocket.Chat,sampaiodiego,"""2020-09-30T03:06:02Z""","""https://github.com/RocketChat/Rocket.Chat/issues/19065""","""MaxListenersExceededWarning after upgrade to 3.6.3""","""too heated""",34,2574,3530
+parkervcp/eggs,parkervcp,"""2021-12-11T10:23:16Z""","""https://github.com/parkervcp/eggs/issues/1459""","""[Bug]: we can no longer choose our version with egg of PocketMine""","""too heated""",26,546,508
+mate-desktop/caja,raveit65,"""2021-09-13T17:44:01Z""","""https://github.com/mate-desktop/caja/issues/1552""","""Sort order inverted""","""too heated""",4,83,31
+jamulussoftware/jamulus,ann0see,"""2021-05-31T04:44:45Z""","""https://github.com/jamulussoftware/jamulus/issues/1791""","""Jamulus 3.7 hangs -eventually- on Mac Big Sur""","""too heated""",6,559,311
+xamarin/Essentials,jamesmontemagno,"""2021-03-06T07:09:57Z""","""https://github.com/xamarin/Essentials/issues/1718""","""[Bug]  FilePicker in xamarin.essential not working""","""too heated""",17,368,173
+GrapheneOS/os_issue_tracker,thestinger,"""2021-02-08T09:46:26Z""","""https://github.com/GrapheneOS/os_issue_tracker/issues/442""","""grapheneOS has been freezing lately on pixel 4""","""too heated""",23,233,18
+Icinga/icingaweb2,Al2Klimov,"""2019-11-30T14:04:18Z""","""https://github.com/Icinga/icingaweb2/issues/4007""","""Require PHP 7.0""","""too heated""",6,322,67
+mongo-express/mongo-express,JafarAkhondali,"""2018-05-07T08:07:03Z""","""https://github.com/mongo-express/mongo-express/issues/411""","""Upgrade mongodb driver to 3.0 for MongoDB 3.6 support""","""too heated""",5,63,509
+ubuntu/yaru,Feichtmeier,"""2021-02-10T15:44:34Z""","""https://github.com/ubuntu/yaru/issues/2644""","""Analyzing the current Ubuntu desktop theme situation: Problems and solutions""","""too heated""",6,353,247
+VATUSA/forums,bnahin,"""2021-07-27T13:16:18Z""","""https://github.com/VATUSA/forums/issues/2""","""[BUG] Posting Event in The Forums generate 514 or 504 Error""","""too heated""",7,10,
+VATUSA/forums,bnahin,"""2021-07-27T13:16:18Z""","""https://github.com/VATUSA/forums/issues/2""","""[BUG] Posting Event in The Forums generate 514 or 504 Error""","""too heated""",10,10,
+Suwings/MCSManager,Suwings,"""2021-07-05T03:53:01Z""","""https://github.com/Suwings/MCSManager/issues/444""","""你希望 MCSManager 9.0 新增哪些功能？""","""too heated""",67,262,548
+vuejs/vue,posva,"""2020-07-01T12:33:15Z""","""https://github.com/vuejs/vue/issues/11483""","""Root level script tag should not be executed""","""too heated""",7,693,18046
+vmware/clarity,gnomeontherun,"""2020-03-11T23:35:40Z""","""https://github.com/vmware/clarity/issues/4362""","""Login wrapper forces form to be cut off on short screens""","""too heated""",7,993,325
+div-bargali/Data-Structures-and-Algorithms,div-bargali,"""2020-10-05T15:25:29Z""","""https://github.com/div-bargali/Data-Structures-and-Algorithms/issues/1""","""Implement Data Structures and Algorithms""","""too heated""",27,38,72
+RPi-Distro/raspberrypi-sys-mods,XECDesign,"""2021-02-04T15:29:19Z""","""https://github.com/RPi-Distro/raspberrypi-sys-mods/issues/42""","""Why Microsoft repo is needed?""","""too heated""",27,19,23
+pinojs/pino,mcollina,"""2020-10-17T01:01:23Z""","""https://github.com/pinojs/pino/issues/921""","""Including a BigInt in the merging object throws an exception""","""too heated""",22,241,2009
+ossrs/srs,winlinvip,"""2015-05-16T00:59:04Z""","""https://github.com/ossrs/srs/issues/307""","""Support WebRTC，一对一通话，多人通话，SFU，直播连麦，会议录制等""","""too heated""",37,949,6229
+ossrs/srs,winlinvip,"""2019-11-26T10:17:30Z""","""https://github.com/ossrs/srs/issues/1500""","""支持对接GB28181吗？监控，智能摄像头，国标推流，RTSP""","""too heated""",38,949,6229
+iamnotturner/vaccipy,JuliusJacobitz,"""2021-05-27T06:23:38Z""","""https://github.com/iamnotturner/vaccipy/issues/171""","""Fehlermeldung""","""too heated""",15,490,622
+wixtoolset/issues,robmen,"""2021-12-09T11:36:22Z""","""https://github.com/wixtoolset/issues/issues/6673""","""Extension for VS2022""","""too heated""",8,476,16
+ossrs/srs,winlinvip,"""2021-09-10T07:28:23Z""","""https://github.com/ossrs/srs/issues/2594""","""在Go里面执行FFprobe FFmpeg，从边缘地址拉流再推流会导致推流超时。""","""too heated""",7,949,6229
+iamnotturner/vaccipy,JuliusJacobitz,"""2021-05-26T13:10:41Z""","""https://github.com/iamnotturner/vaccipy/issues/153""","""Manuelle Cookies - Egal was man macht""","""too heated""",50,490,622
+uBlockOrigin/uAssets,okiehsch,"""2021-09-30T15:53:47Z""","""https://github.com/uBlockOrigin/uAssets/issues/10100""","""cn.bing.com""","""too heated""",6,3779,355
+ketanchoyal/Our-E-School,ketanchoyal,"""2021-05-12T07:09:07Z""","""https://github.com/ketanchoyal/Our-E-School/issues/30""","""bugs""","""too heated""",7,13,131
+node-fetch/node-fetch,jimmywarting,"""2021-09-01T16:41:32Z""","""https://github.com/node-fetch/node-fetch/issues/1263""","""ESM only breaks everything""","""too heated""",64,331,1329
+maxieds/ChameleonMiniLiveDebugger,maxieds,"""2020-08-09T17:53:26Z""","""https://github.com/maxieds/ChameleonMiniLiveDebugger/issues/26""","""PLAY STORE WILL NO LONGER INSTALL THE FREE VERSION OF CMLD""","""too heated""",23,37,14
+maxieds/ChameleonMiniLiveDebugger,maxieds,"""2020-08-09T17:53:26Z""","""https://github.com/maxieds/ChameleonMiniLiveDebugger/issues/26""","""PLAY STORE WILL NO LONGER INSTALL THE FREE VERSION OF CMLD""","""too heated""",31,37,14
+jhipster/generator-jhipster,mshima,"""2020-10-09T16:12:36Z""","""https://github.com/jhipster/generator-jhipster/issues/12702""","""Hexagonal architecture friendly.""","""too heated""",4,1123,1516
+GTNewHorizons/GT-New-Horizons-Modpack,Glease,"""2020-02-27T11:12:49Z""","""https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues/5656""","""Interaction of Large Sifter Bonus and Platinum Line""","""too heated""",30,3493,114
+pods-framework/pods,sc0ttkclark,"""2021-04-20T09:05:24Z""","""https://github.com/pods-framework/pods/issues/6002""","""Checkbox default value 0 with required - obvious bug""","""too heated""",6,567,80
+pods-framework/pods,sc0ttkclark,"""2021-04-20T08:13:48Z""","""https://github.com/pods-framework/pods/issues/6000""","""Clear Pods DB garbage from wp_posts and wp_postmeta to own table(s)""","""too heated""",5,567,80
+vimpostor/quickcurver,vimpostor,"""2021-08-11T22:11:40Z""","""https://github.com/vimpostor/quickcurver/issues/8""","""Help, your artifact is down""","""too heated""",5,2,4
+spyder-ide/spyder,ccordoba12,"""2021-04-05T15:21:59Z""","""https://github.com/spyder-ide/spyder/issues/15113""","""Spyder 5 is broken in Anaconda""","""too heated""",12,3793,1090
+spyder-ide/spyder,ccordoba12,"""2021-04-05T15:21:59Z""","""https://github.com/spyder-ide/spyder/issues/15113""","""Spyder 5 is broken in Anaconda""","""too heated""",13,3793,1090
+NixOS/nixpkgs,mweinelt,"""2021-06-12T15:37:08Z""","""https://github.com/NixOS/nixpkgs/issues/126679""","""Remove `python3Packages.wled` package""","""too heated""",5,7878,2482
+Depressurizer/Depressurizer,mvegter,"""2018-10-06T23:10:20Z""","""https://github.com/Depressurizer/Depressurizer/issues/72""","""[REQUEST] sort by if currently downloaded""","""too heated""",4,82,141
+NixOS/nixpkgs,mweinelt,"""2021-06-12T15:30:49Z""","""https://github.com/NixOS/nixpkgs/issues/126677""","""Remove `python3Packages.ambee` package""","""too heated""",9,7878,2482
+CookieJarApps/BiscuitBrowser,CookieJarApps,"""2021-03-19T08:46:27Z""","""https://github.com/CookieJarApps/BiscuitBrowser/issues/4""","""please add more option""","""too heated""",4,24,42
+LedgerHQ/ledger-live-desktop,cthepot-ledger,"""2021-05-12T08:43:20Z""","""https://github.com/LedgerHQ/ledger-live-desktop/issues/3827""","""Chia support""","""too heated""",43,413,306
+ansible/ansible,sivel,"""2017-03-16T18:09:31Z""","""https://github.com/ansible/ansible/issues/22716""","""Using include asynchronously with with_items""","""too heated""",13,2779,5266
+planetis-m/sync,planetis-m,"""2021-07-09T10:39:07Z""","""https://github.com/planetis-m/sync/issues/13""","""Is it safe to return a view to the contents of a smartptr?""","""too heated""",13,40,9
+vignette-project/vignette,martmists-gh,"""2021-07-30T07:57:49Z""","""https://github.com/vignette-project/vignette/issues/224""","""Vignette bundles the entire dotnet runtime""","""too heated""",5,48,96
+vignette-project/vignette,sr229,"""2021-07-30T07:57:49Z""","""https://github.com/vignette-project/vignette/issues/224""","""Vignette bundles the entire dotnet runtime""","""too heated""",5,48,96
+alexmercerind/youtube-search-python,alexmercerind,"""2021-09-15T18:52:19Z""","""https://github.com/alexmercerind/youtube-search-python/issues/113""","""Playlist result Not \""tab delimited\"" in JSON ResultMode""","""too heated""",5,156,290
+home-assistant/core,MartinHjelmare,"""2021-05-04T16:17:30Z""","""https://github.com/home-assistant/core/issues/50073""","""Modbus is failing in all possible ways""","""too heated""",8,13816,10916
+home-assistant/core,frenck,"""2021-11-20T18:14:15Z""","""https://github.com/home-assistant/core/issues/60034""","""Tuya; delayed/missing state updates: Confirmed Tuya Cloud issue, awaiting upstream fix""","""too heated""",100,13816,10916
+2020Sanoj/Mod-Installer,2020Sanoj,"""2021-05-12T10:07:48Z""","""https://github.com/2020Sanoj/Mod-Installer/issues/1""","""Skript für alle Platformen""","""too heated""",8,7,3
+utk-cs/CS340-Fall-2021,bepri,"""2021-09-09T19:27:24Z""","""https://github.com/utk-cs/CS340-Fall-2021/issues/142""","""Cannot be closed""","""too heated""",19,9,5
+utk-cs/CS340-Fall-2021,dearvarun,"""2021-09-09T19:27:24Z""","""https://github.com/utk-cs/CS340-Fall-2021/issues/142""","""Test test test""","""too heated""",16,9,5
+HandBrake/HandBrake,sr55,"""2021-07-19T00:49:56Z""","""https://github.com/HandBrake/HandBrake/issues/3697""","""Removing the preset side panel and replacing it with a dropdown menu is less user friendly and harder to work with.""","""too heated""",17,988,1996
+mdn/translated-content,Rumyra,"""2021-08-22T13:44:41Z""","""https://github.com/mdn/translated-content/issues/2193""","""Separate zh-cn content team""","""too heated""",9,743,481
+mpv-player/mpv,haasn,"""2021-09-13T12:56:58Z""","""https://github.com/mpv-player/mpv/issues/9208""","""youtube-dl is dead, add yt-dlp as default""","""too heated""",15,1492,3683
+Stellarium/stellarium,github-actions[bot],"""2020-10-10T11:45:40Z""","""https://github.com/Stellarium/stellarium/issues/1317""","""Ocular Plugin: Mouse Navigation""","""too heated""",22,556,684
+peaceiris/actions-label-commenter,peaceiris,"""2020-06-21T20:13:58Z""","""https://github.com/peaceiris/actions-label-commenter/issues/158""","""proposal: This is a sample proposal issue""","""too heated""",16,15,16
+Stellarium/stellarium,gzotti,"""2020-10-10T11:45:40Z""","""https://github.com/Stellarium/stellarium/issues/1317""","""Ocular Plugin: Mouse Navigation""","""too heated""",22,556,684
+Stellarium/stellarium,alex-w,"""2020-10-10T11:45:40Z""","""https://github.com/Stellarium/stellarium/issues/1317""","""Ocular Plugin: Mouse Navigation""","""too heated""",22,556,684
+WarEmu/WarBugs,GamesBondd,"""2021-01-20T14:46:52Z""","""https://github.com/WarEmu/WarBugs/issues/18378""","""Ram can be deployed inside Keep, and thus prevent from targeting oil""","""too heated""",14,2488,18
+cordova-rtc/cordova-plugin-iosrtc,hthetiot,"""2021-01-12T01:47:54Z""","""https://github.com/cordova-rtc/cordova-plugin-iosrtc/issues/626""","""xcode 12 now complains about unsupported architectures even for simulator""","""too heated""",16,98,44
+cordova-rtc/cordova-plugin-iosrtc,hthetiot,"""2021-01-12T01:47:54Z""","""https://github.com/cordova-rtc/cordova-plugin-iosrtc/issues/626""","""xcode 12 now complains about unsupported architectures even for simulator""","""too heated""",16,98,44
+cordova-rtc/cordova-plugin-iosrtc,hthetiot,"""2021-01-12T01:47:54Z""","""https://github.com/cordova-rtc/cordova-plugin-iosrtc/issues/626""","""xcode 12 now complains about unsupported architectures even for simulator""","""too heated""",15,98,44
+StylishThemes/GitHub-Dark,silverwind,"""2021-09-13T02:15:03Z""","""https://github.com/StylishThemes/GitHub-Dark/issues/1320""","""Text is unreadable as of v4.3.116""","""too heated""",7,69,341
+microsoft/vscode,joaomoreno,"""2021-02-10T15:51:57Z""","""https://github.com/microsoft/vscode/issues/116341""","""⚠️🚧👷 Scheduled rename `master` branch to `main`""","""too heated""",5,42722,19951
+nextcloud/server,szaimen,"""2021-01-29T23:36:44Z""","""https://github.com/nextcloud/server/issues/25398""","""Apps do not appear in the App Store - https://apps.nextcloud.com timeout""","""too heated""",10,4890,5947
+crimx/ext-saladict,crimx,"""2020-12-19T03:57:17Z""","""https://github.com/crimx/ext-saladict/issues/1160""","""划词后谷歌翻译没有结果，其他翻译有结果""","""too heated""",10,531,2069
+gpuweb/gpuweb,Kangz,"""2020-12-05T13:33:34Z""","""https://github.com/gpuweb/gpuweb/issues/1276""","""First WebGPU Stable Release / Prognosis ?""","""too heated""",11,859,912
+dotnet-foundation/wg-marketing,BethMassi,"""2020-10-19T20:44:23Z""","""https://github.com/dotnet-foundation/wg-marketing/issues/5""","""Someone is faking your foundation in China""","""too heated""",16,2,4
+retorquere/zotero-better-bibtex,retorquere,"""2021-03-30T00:47:30Z""","""https://github.com/retorquere/zotero-better-bibtex/issues/1784""","""Any way to add file paths to export?""","""too heated""",8,540,598
+microsoft/vscode-python,karrtikr,"""2020-11-03T06:33:27Z""","""https://github.com/microsoft/vscode-python/issues/16613""","""While creating virtual environment Python extension does not prompt with venv notification""","""too heated""",48,3131,594
+microsoft/vscode-python,brettcannon,"""2020-06-12T11:33:32Z""","""https://github.com/microsoft/vscode-python/issues/12313""","""Details on the A/B experiment removing `python.pythonPath` support""","""too heated""",46,3131,594
+kfix/ddcctl,kfix,"""2016-12-09T18:21:43Z""","""https://github.com/kfix/ddcctl/issues/17""","""Duplicate displays cannot be addressed""","""too heated""",27,42,366
+kfix/ddcctl,kfix,"""2016-12-09T18:21:43Z""","""https://github.com/kfix/ddcctl/issues/17""","""Duplicate displays cannot be addressed""","""too heated""",27,42,366
+feren-OS/Bug-Reporting-Center,dominichayesferen,"""2021-01-21T19:56:50Z""","""https://github.com/feren-OS/Bug-Reporting-Center/issues/202""","""Problem with Repositories (update manager) ""","""too heated""",9,120,8
+Monika-After-Story/MonikaModDev,multimokia,"""2021-09-05T00:18:41Z""","""https://github.com/Monika-After-Story/MonikaModDev/issues/7711""","""Four Years Later.""","""too heated""",24,2247,213
+cairdcoinheringaahing/CGCC-Blog-drafts,ysthakur,"""2021-04-20T22:10:24Z""","""https://github.com/cairdcoinheringaahing/CGCC-Blog-drafts/issues/1""","""Yes""","""too heated""",5,15,4
+sentinm/Store-Bot,sentinm,"""2021-07-19T07:44:34Z""","""https://github.com/sentinm/Store-Bot/issues/1""","""Copyright""","""too heated""",6,2,
+audacity/audacity,Tantacrul,"""2021-07-06T17:56:01Z""","""https://github.com/audacity/audacity/issues/1245""","""VOTING! For the new fork""","""too heated""",29,1343,3288
+standardnotes/forum,TheodoreChu,"""2019-10-17T22:49:24Z""","""https://github.com/standardnotes/forum/issues/732""","""[Feature Request] Free dark theme""","""too heated""",7,549,38
+the1812/Bilibili-Evolved,the1812,"""2021-12-07T10:45:33Z""","""https://github.com/the1812/Bilibili-Evolved/issues/2597""","""视频页夜间模式BUG""","""too heated""",7,1137,5635
+golang/go,ianlancetaylor,"""2019-07-22T21:14:30Z""","""https://github.com/golang/go/issues/33232""","""spec: allow 'any' for 'interface{}' in non-constraint contexts""","""too heated""",87,10716,14994
+ByteOverload/bugtracker,WhosPix3l,"""2021-06-28T11:00:47Z""","""https://github.com/ByteOverload/bugtracker/issues/2""","""[Website] bad code pls dont use ai generated""","""too heated""",6,10,23
+Atmosphere-NX/Atmosphere,SciresM,"""2018-08-02T06:34:55Z""","""https://github.com/Atmosphere-NX/Atmosphere/issues/178""","""Implement and add support for a gdbstub.""","""too heated""",4,738,2825
+thanksmister/wallpanel-android,thanksmister,"""2021-05-18T01:46:37Z""","""https://github.com/thanksmister/wallpanel-android/issues/268""","""Crash after about 12h. Sluggish response when reopened""","""too heated""",27,166,164
+strapi/strapi,alexandrebodin,"""2020-03-02T16:51:24Z""","""https://github.com/strapi/strapi/issues/5385""","""Can't create \""circular referencing\"" Content Type MongoDB""","""too heated""",4,2341,10481
+MatthewRalston/kdb,MatthewRalston,"""2020-02-14T14:10:50Z""","""https://github.com/MatthewRalston/kdb/issues/7""","""Major refactor of kdb module""","""too heated""",7,7,
+rms-open-letter/rms-open-letter.github.io,neilmcgovern,"""2021-03-23T20:08:16Z""","""https://github.com/rms-open-letter/rms-open-letter.github.io/issues/120""","""Expanding scope: revoking copyright assignments""","""too heated""",5,182,724
+courses-ionio/sw,epidrome,"""2020-02-13T09:35:54Z""","""https://github.com/courses-ionio/sw/issues/828""","""Ανακοινώσεις""","""too heated""",9,24,15
+James-Yu/LaTeX-Workshop,tamuratak,"""2021-12-13T01:42:34Z""","""https://github.com/James-Yu/LaTeX-Workshop/issues/3009""","""Drop support for LaTeX Utilities""","""too heated""",5,740,1392
+Divine-Journey-2/main,Atricos,"""2021-09-08T20:30:25Z""","""https://github.com/Divine-Journey-2/main/issues/248""","""Add ability to turn off AE2 Channels""","""too heated""",6,622,10
+stevenwaterman/Lexoral,stevenwaterman,"""2021-11-17T13:16:45Z""","""https://github.com/stevenwaterman/Lexoral/issues/66""","""Cannot extract audio from non-streamable video codecs""","""too heated""",37,72,3
+yogstation13/Yogstation,adamsong,"""2021-08-31T20:38:49Z""","""https://github.com/yogstation13/Yogstation/issues/12206""","""Non-Stealth Antags get a Sec HUD icon""","""too heated""",7,780,20
+rodrigues-i/Ola-Mundo,rodrigues-i,"""2021-06-09T15:40:39Z""","""https://github.com/rodrigues-i/Ola-Mundo/issues/1""","""A praticar Markdown""","""too heated""",5,2,
+SlimeKnights/TinkersConstruct,KnightMiner,"""2018-09-26T21:57:44Z""","""https://github.com/SlimeKnights/TinkersConstruct/issues/3651""","""Forge fix #4898 since build 2716 causes tconstruct-API to report errors in minecraft.log""","""too heated""",9,815,249
+pmndrs/react-spring,joshuaellis,"""2021-03-23T16:55:35Z""","""https://github.com/pmndrs/react-spring/issues/1359""","""Set in [x, set] = useSpring(() => ({ ... })) is not callable""","""too heated""",11,485,3049
+Linkwarrior75/Jeff-Mod-X,Linkwarrior75,"""2021-11-20T18:27:31Z""","""https://github.com/Linkwarrior75/Jeff-Mod-X/issues/7""","""char""","""too heated""",48,25,3
+Linkwarrior75/Jeff-Mod-X,Linkwarrior75,"""2021-11-20T18:27:31Z""","""https://github.com/Linkwarrior75/Jeff-Mod-X/issues/7""","""char""","""too heated""",21,25,3
+Linkwarrior75/Jeff-Mod-X,Linkwarrior75,"""2021-11-20T18:27:31Z""","""https://github.com/Linkwarrior75/Jeff-Mod-X/issues/7""","""char""","""too heated""",10,25,3
+Linkwarrior75/Jeff-Mod-X,Linkwarrior75,"""2021-11-20T18:27:31Z""","""https://github.com/Linkwarrior75/Jeff-Mod-X/issues/7""","""char""","""too heated""",30,25,3
+Linkwarrior75/Jeff-Mod-X,Linkwarrior75,"""2021-11-20T18:27:31Z""","""https://github.com/Linkwarrior75/Jeff-Mod-X/issues/7""","""char""","""too heated""",44,25,3
+Ryochan7/DS4Windows,Ryochan7,"""2021-04-04T15:31:34Z""","""https://github.com/Ryochan7/DS4Windows/issues/2026""","""Input delay on DS4 v1 controller when using HidHide in conjunction with DS4Windows""","""too heated""",19,1224,1651
+CobbleSword/NachoSpigot,Lucaskyy,"""2021-12-06T05:02:16Z""","""https://github.com/CobbleSword/NachoSpigot/issues/277""","""Single water bucket placement causes 4 block change updates""","""too heated""",10,252,162
