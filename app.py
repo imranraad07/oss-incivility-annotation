@@ -37,6 +37,7 @@ class AnnotatedComment:
     comment_body: str
     annotation = "None"
     annotation_other = ""
+    toxic = "None"
 
 
 df_comments = pd.read_csv('comments_v2.csv')
@@ -48,10 +49,10 @@ def next():
     st.session_state.issue_level = 1
 
 
-def insert_comment(issue_id, comment_id, user_login, tbdf):
+def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
     st.session_state.counter += 1
     st.session_state.issue_level = 1
-    db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf)
+    db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
 
 def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, target, consequences,
@@ -217,7 +218,8 @@ def main():
                 else:
                     st.session_state.logged_in = 1
                     st.session_state.user_login = user_login
-                    if st.session_state.user_login != 'admin':
+                    is_admin = user.get('is_admin')
+                    if is_admin is False:
                         current_issue_id = user.get('current_issue_id')
                         end_issue_id = user.get('end_issue_id')
                         if current_issue_id == end_issue_id:
@@ -306,10 +308,14 @@ def main():
                     st.markdown('---')
                     option = st.selectbox(label='Select TBDF', options=tbdfs, key=comment.comment_id, index=0)
                     comment.annotation = option
+                    print(comment.annotation)
 
-                    if n > 0:
+                    if n > 0 and comment.annotation != "None" and comment.annotation != '':
                         st.markdown('---')
-                        option = st.selectbox(label='Is the comment Toxic?', options=["","Yes", "No"], key=(comment.comment_id*2), index=0)
+                        toxic_option = st.selectbox(label='Is the comment Toxic?', options=["","Yes", "No"], key=('toxic_'+str(comment.comment_id)), index=0)
+                        comment.toxic = toxic_option
+                    else:
+                        comment.toxic = "None"
 
                     n += 1
                 # if comment.annotation == 'Other':
@@ -329,11 +335,13 @@ def main():
             else:
                 comment_id = comment.comment_id
                 comment_annotation = comment.annotation
+                comment_toxic = comment.toxic
                 print('comment_id:' + str(comment_id))
                 st.button("Next Comment ⬇️", on_click=insert_comment, use_container_width=True, args=(current_issue_id,
                                                                                                       comment_id,
                                                                                                       st.session_state.user_login,
-                                                                                                      comment_annotation))
+                                                                                                      comment_annotation,
+                                                                                                      comment_toxic))
             if not st.session_state.issue_level:
                 st.info('Please indicate the derailment point, trigger, target, and consequences')
                 dps = ['']

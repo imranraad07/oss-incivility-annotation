@@ -6,10 +6,20 @@ class Database:
         self.conn = sqlite3.connect(path)
         c = self.conn.cursor()
         c.execute(
-            "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, user_login TEXT UNIQUE not null, start_issue_id INTEGER not null, end_issue_id INTEGER not null, current_issue_id INTEGER not null);"
+            "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, \
+            user_login TEXT UNIQUE not null, \
+            is_admin INTEGER not null, \
+            start_issue_id INTEGER not null, \
+            end_issue_id INTEGER not null, \
+            current_issue_id INTEGER not null);"
         )
         c.execute(
-            "CREATE TABLE IF NOT EXISTS annotated_comments(id INTEGER PRIMARY KEY, issue_id INTEGER not null, comment_id INTEGER not null, user_login TEXT not null, tbdf TEXT not null);"
+            "CREATE TABLE IF NOT EXISTS annotated_comments(id INTEGER PRIMARY KEY, \
+                issue_id INTEGER not null, \
+                comment_id INTEGER not null,\
+                user_login TEXT not null, \
+                tbdf TEXT not null, \
+                toxic TEXT not null);"
         )
         c.execute(
             "CREATE TABLE IF NOT EXISTS annotated_issues(id INTEGER PRIMARY KEY, issue_id INTEGER not null, user_login TEXT not null, derailment_point TEXT not null, trigger TEXT not null, target TEXT not null, consequences TEXT not null, additional_comments TEXT not null);"
@@ -29,10 +39,10 @@ class Database:
     def close(self):
         self.conn.close()
 
-    def create_user(self, user_login, start_issue, end_issue, current_issue):
+    def create_user(self, user_login, is_admin, start_issue, end_issue, current_issue):
         return self.execute(
-            "INSERT INTO users (user_login, start_issue_id, end_issue_id, current_issue_id) VALUES (?, ?, ?, ?)",
-            [user_login, start_issue, end_issue, current_issue],
+            "INSERT INTO users (user_login, is_admin, start_issue_id, end_issue_id, current_issue_id) VALUES (?, ?, ?, ?, ?)",
+            [user_login, is_admin, start_issue, end_issue, current_issue],
         )
 
     def get_user(self, user_login):
@@ -43,7 +53,8 @@ class Database:
                 "user_login": d[1],
                 "start_issue_id": d[2],
                 "end_issue_id": d[3],
-                "current_issue_id": d[4]
+                "current_issue_id": d[4],
+                "is_admin": d[5]
             }
             return retval
         else:
@@ -63,15 +74,16 @@ class Database:
                 "user_login": d[1],
                 "start_issue_id": d[2],
                 "end_issue_id": d[3],
-                "current_issue_id": d[4]
+                "current_issue_id": d[4],
+                "is_admin": d[5]
             }
             users.append(retval)
         return users
 
-    def insert_comment_annotation(self, issue_id, comment_id, user_login, tbdf):
+    def insert_comment_annotation(self, issue_id, comment_id, user_login, tbdf, toxic):
         return self.execute(
-            "INSERT INTO annotated_comments (issue_id, comment_id, user_login, tbdf) VALUES (?, ?, ?, ?)",
-            [issue_id, comment_id, user_login, tbdf],
+            "INSERT INTO annotated_comments (issue_id, comment_id, user_login, tbdf, toxic) VALUES (?, ?, ?, ?, ?)",
+            [issue_id, comment_id, user_login, tbdf, toxic],
         )
 
     def insert_issue_annotation(self, issue_id, user_login, derailment_point, trigger, target, consequences, additional_comments):
@@ -88,7 +100,8 @@ class Database:
                 "issue_id": d[1],
                 "comment_id": d[2],
                 "user_login": d[3],
-                "tbdf": d[4]
+                "tbdf": d[4],
+                "toxic": d[5]
             }
             comment_annotations.append(retval)
         return comment_annotations
