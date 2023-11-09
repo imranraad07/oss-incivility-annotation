@@ -217,12 +217,24 @@ def main():
                 else:
                     st.session_state.logged_in = 1
                     st.session_state.user_login = user_login
-                    current_issue_id = user.get('current_issue_id')
-                    end_issue_id = user.get('end_issue_id')
-                    if current_issue_id == end_issue_id:
-                        st.session_state.annotation_finished = 1
-                    logged_in = 1
-                    st.rerun()
+                    if st.session_state.user_login != 'admin':
+                        current_issue_id = user.get('current_issue_id')
+                        end_issue_id = user.get('end_issue_id')
+                        if current_issue_id == end_issue_id:
+                            st.session_state.annotation_finished = 1
+                        logged_in = 1
+                        st.rerun()
+                    else:
+                        logged_in = 1
+                        st.rerun()
+    elif st.session_state.user_login == 'admin':
+        with open("annotation.db", "rb") as fp:
+            btn = st.download_button(
+                label="Download db file",
+                data=fp,
+                file_name="annotation.db",
+                mime="application/octet-stream"
+            )
     else:
         if st.session_state.annotation_finished:
             st.empty()
