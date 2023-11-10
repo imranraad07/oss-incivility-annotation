@@ -308,14 +308,21 @@ def main():
                     st.markdown('---')
                     option = st.selectbox(label='Select TBDF', options=tbdfs, key=comment.comment_id, index=0)
                     comment.annotation = option
-                    print(comment.annotation)
+                    # print(comment.annotation)
 
-                    if n > 0 and comment.annotation != "None" and comment.annotation != '':
-                        st.markdown('---')
-                        toxic_option = st.selectbox(label='Is the comment Toxic?', options=["","Yes", "No"], key=('toxic_'+str(comment.comment_id)), index=0)
-                        comment.toxic = toxic_option
-                    else:
-                        comment.toxic = "None"
+                    toxic_must_select = False
+                    comment.toxic = ""
+
+                    if n > 0:
+                        if comment.annotation != "None" and comment.annotation != '':
+                            toxic_must_select = True
+                            st.markdown('---')
+                            toxic_option = st.selectbox(label='Is the comment Toxic?', disabled=False, options=["", "Yes", "No"], key=('toxic_'+str(comment.comment_id)), index=0)
+                            comment.toxic = toxic_option
+                        else:
+                            st.markdown('---')
+                            st.selectbox(label='Is the comment Toxic?', disabled=True, options=["", "Yes", "No"])
+                            comment.toxic = ''
 
                     n += 1
                 # if comment.annotation == 'Other':
@@ -337,11 +344,22 @@ def main():
                 comment_annotation = comment.annotation
                 comment_toxic = comment.toxic
                 print('comment_id:' + str(comment_id))
-                st.button("Next Comment ⬇️", on_click=insert_comment, use_container_width=True, args=(current_issue_id,
-                                                                                                      comment_id,
-                                                                                                      st.session_state.user_login,
-                                                                                                      comment_annotation,
-                                                                                                      comment_toxic))
+                print('comment_id:' + str(comment_annotation))
+                print('comment_id:' + str(comment_toxic))
+                if comment_annotation == '':
+                    option_disabled = True
+                else:
+                    if toxic_must_select is False or comment_toxic != '':
+                        option_disabled = False
+                    else:
+                        option_disabled = True
+
+                st.button("Next Comment ⬇️", disabled=option_disabled, on_click=insert_comment, use_container_width=True, args=(current_issue_id, 
+                                                                                                                                comment_id, 
+                                                                                                                                st.session_state.user_login, 
+                                                                                                                                comment_annotation, 
+                                                                                                                                comment_toxic))
+
             if not st.session_state.issue_level:
                 st.info('Please indicate the derailment point, trigger, target, and consequences')
                 dps = ['']
