@@ -51,10 +51,10 @@ class Database:
             d = data[0]
             retval = {
                 "user_login": d[1],
-                "start_issue_id": d[2],
-                "end_issue_id": d[3],
-                "current_issue_id": d[4],
-                "is_admin": d[5]
+                "is_admin": d[2],
+                "start_issue_id": d[3],
+                "end_issue_id": d[4],
+                "current_issue_id": d[5]
             }
             return retval
         else:
@@ -72,10 +72,10 @@ class Database:
         for d in data:
             retval = {
                 "user_login": d[1],
-                "start_issue_id": d[2],
-                "end_issue_id": d[3],
-                "current_issue_id": d[4],
-                "is_admin": d[5]
+                "is_admin": d[2],
+                "start_issue_id": d[3],
+                "end_issue_id": d[4],
+                "current_issue_id": d[5]
             }
             users.append(retval)
         return users

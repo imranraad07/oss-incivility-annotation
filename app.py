@@ -9,19 +9,19 @@ db = Database(DATABASE_PATH)
 
 tbdfs = [
     '', 'None', 'Bitter frustration', 'Impatience', 'Irony', 'Insulting', 'Mocking', 'Threat', 'Vulgarity',
-    'Entitlement', 'Identity attacks/Name-Calling', 'Other'
+    'Entitlement', 'Identity attacks/Name-Calling'
 ]
 triggers = [
     '', 'None', 'Failed use of tool/code or error messages', 'Communication breakdown', 'Rejection',
     'Violation of community conventions', 'Past interactions', 'Politics/ideology', 'Technical disagreement',
-    'Unprovoked', 'Other'
+    'Unprovoked'
 ]
 targets = [
-    '', 'None', 'Code/tool', 'People', 'Company/organization', 'Self-directed', 'Undirected', 'Other'
+    '', 'None', 'Code/tool', 'People', 'Company/organization', 'Self-directed', 'Undirected'
 ]
 consequences = [
     '', 'None', 'Invoke Code of Conduct', 'Escalating further', 'Discontinued further discussion',
-    'Provided technical explanation', 'Accepting criticism', 'Trying to stop the incivility', 'Other'
+    'Provided technical explanation', 'Accepting criticism', 'Trying to stop the incivility'
 ]
 
 
@@ -50,6 +50,10 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
+
+    st.session_state.tbdf_selection_done[st.session_state.counter] = True
+    st.session_state.toxic_selection_done[st.session_state.counter] = True
+
     st.session_state.counter += 1
     st.session_state.issue_level = 1
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
@@ -60,6 +64,8 @@ def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, t
     st.session_state.counter += 1
     st.session_state.issue_level = 1
     st.session_state.comments_on_screen = []
+    st.session_state.tbdf_selection_done = []
+    st.session_state.toxic_selection_done = []
     db.update_current_issue(user_login, next_issue_id)
     db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences,
                                additional_comments)
@@ -110,6 +116,19 @@ if "comments_on_screen" not in st.session_state:
     st.session_state.comments_on_screen = comments_on_screen
 else:
     comments_on_screen = st.session_state.comments_on_screen
+
+if "tbdf_selection_done" not in st.session_state:
+    tbdf_selection_done = []
+    st.session_state.tbdf_selection_done = tbdf_selection_done
+else:
+    tbdf_selection_done = st.session_state.tbdf_selection_done
+
+if "toxic_selection_done" not in st.session_state:
+    toxic_selection_done = []
+    st.session_state.toxic_selection_done = toxic_selection_done
+else:
+    toxic_selection_done = st.session_state.toxic_selection_done
+
 
 # Load comment and the current annotations
 if "my_comments" not in st.session_state:
@@ -279,6 +298,8 @@ def main():
             n = 0
             if comment not in st.session_state.comments_on_screen:
                 st.session_state.comments_on_screen.append(comment)
+                st.session_state.tbdf_selection_done.append(False)
+                st.session_state.toxic_selection_done.append(False)
             print(len(st.session_state.comments_on_screen))
 
             with st.sidebar:
@@ -294,7 +315,7 @@ def main():
                 my_bar.progress((len(st.session_state.comments_on_screen)) / len(all_comments_to_display), progress_text)
                 st.write(instructions())
 
-            for comment in st.session_state.comments_on_screen:
+            for comment, tbdf_option_disabled, toxic_selection_done in zip(st.session_state.comments_on_screen, st.session_state.tbdf_selection_done, st.session_state.toxic_selection_done):
                 with st.chat_message("user"):
                     datetime_object = datetime.strptime(comment.created_at, '%Y-%m-%dT%H:%M:%SZ')
                     metadata = """
@@ -306,7 +327,7 @@ def main():
                     comment_body = comment_body.replace("```", '').replace("##", '')
                     st.write(comment_body)
                     st.markdown('---')
-                    option = st.selectbox(label='Select TBDF', options=tbdfs, key=comment.comment_id, index=0)
+                    option = st.selectbox(label='Select TBDF', options=tbdfs, key=comment.comment_id, index=0, disabled=tbdf_option_disabled)
                     comment.annotation = option
                     # print(comment.annotation)
 
@@ -317,11 +338,11 @@ def main():
                         if comment.annotation != "None" and comment.annotation != '':
                             toxic_must_select = True
                             st.markdown('---')
-                            toxic_option = st.selectbox(label='Is the comment Toxic?', disabled=False, options=["", "Yes", "No"], key=('toxic_'+str(comment.comment_id)), index=0)
+                            toxic_option = st.selectbox(label='Is the comment Toxic?', disabled=toxic_selection_done, options=["", "Yes", "No"], key=('toxic_'+str(comment.comment_id)), index=0)
                             comment.toxic = toxic_option
                         else:
                             st.markdown('---')
-                            st.selectbox(label='Is the comment Toxic?', disabled=True, options=["", "Yes", "No"])
+                            st.selectbox(label='Is the comment Toxic?', disabled=True, options=["", "Yes", "No"], key=('toxic__'+str(comment.comment_id)))
                             comment.toxic = ''
 
                     n += 1
@@ -330,7 +351,18 @@ def main():
 
             if next_comment.issue_id != st.session_state.issue_id:
                 if st.session_state.issue_level == 1:
-                    st.button("Issue level ➡️", on_click=next_issue_level, use_container_width=True)
+                    comment_id = comment.comment_id
+                    comment_annotation = comment.annotation
+                    comment_toxic = comment.toxic
+                    option_disabled1 = True
+                    if comment_annotation == '':
+                        option_disabled1 = True
+                    else:
+                        if toxic_must_select is False or comment_toxic != '':
+                            option_disabled1 = False
+                        else:
+                            option_disabled1 = True
+                    st.button("Issue level ➡️", disabled=option_disabled1, on_click=next_issue_level, use_container_width=True)
                 primary_color = st.get_option("theme.primaryColor")
                 s = f"""
                 <style>
