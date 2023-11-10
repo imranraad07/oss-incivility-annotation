@@ -55,9 +55,12 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
     st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
     st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
     st.session_state.disable_counter += 1
-
     st.session_state.counter += 1
     st.session_state.issue_level = 1
+
+    if toxic == "Yes" and st.session_state.toxic_comment_idx == 0:
+        st.session_state.toxic_comment_idx = st.session_state.disable_counter
+
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
 
@@ -109,6 +112,9 @@ def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
     st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
     st.session_state.disable_counter += 1
 
+    if toxic == "Yes" and st.session_state.toxic_comment_idx == 0:
+        st.session_state.toxic_comment_idx = st.session_state.disable_counter
+
     st.session_state.issue_level = 0
     st.session_state.disable_counter = 0
 
@@ -125,6 +131,8 @@ def st_on_change(comment, option):
 if 'counter' not in st.session_state: st.session_state.counter = 0
 
 if 'disable_counter' not in st.session_state: st.session_state.disable_counter = 0
+
+if 'toxic_comment_idx' not in st.session_state: st.session_state.toxic_comment_idx = 0
 
 if 'annotation_finished' not in st.session_state: st.session_state.annotation_finished = 0
 
@@ -426,13 +434,22 @@ def main():
                 next_issue_disabled = True
                 st.info('Please indicate the derailment point, trigger, target, and consequences')
                 dps = ['']
-                for i in range(len(st.session_state.comments_on_screen)):
+                upto_comment = 0
+                # upto_comment = len(st.session_state.comments_on_screen)
+                if st.session_state.toxic_comment_idx > 0:
+                    upto_comment = st.session_state.toxic_comment_idx - 1
+                print("upto_comment:", upto_comment)
+                for i in range(upto_comment):
                     c = st.session_state.comments_on_screen[i]
                     dps.append("Comment {}, {}".format(i, c.annotation))
+                if upto_comment == 0:
+                    disable_derail = True
+                else:
+                    disable_derail = False
                 option_derail = st.selectbox(
                     'Derailment Point',
                     dps,
-                    disabled=st.session_state.issue_level,
+                    disabled=disable_derail,
                     key='derailment point' + str(st.session_state.issue_id))
                 option_trigger = st.selectbox(
                     'Trigger',
