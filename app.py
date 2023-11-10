@@ -50,9 +50,11 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
+    print(st.session_state.counter)
 
-    st.session_state.tbdf_selection_done[st.session_state.counter] = True
-    st.session_state.toxic_selection_done[st.session_state.counter] = True
+    st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
+    st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
+    st.session_state.disable_counter += 1
 
     st.session_state.counter += 1
     st.session_state.issue_level = 1
@@ -79,14 +81,36 @@ def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, t
 
     st.components.v1.html(js)
 
-
-def finish_annotation():
+def finish_annotation(user_login, issue_id, derailment_point, trigger, target, consequences,
+               additional_comments):
+    st.session_state.counter += 1
+    st.session_state.issue_level = 1
+    st.session_state.comments_on_screen = []
+    st.session_state.tbdf_selection_done = []
+    st.session_state.toxic_selection_done = []
+    
+    db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences,
+                               additional_comments)
+    
     st.session_state.annotation_finished = 1
 
 
-def next_issue_level():
+# def finish_annotation():
+#     st.session_state.annotation_finished = 1
+
+
+def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
     # st.session_state.counter += 1
+    print(issue_id, comment_id, user_login, tbdf, toxic)
+
+    db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
+
+    st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
+    st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
+    st.session_state.disable_counter += 1
+
     st.session_state.issue_level = 0
+    st.session_state.disable_counter = 0
 
 
 def prev():
@@ -99,6 +123,8 @@ def st_on_change(comment, option):
 
 
 if 'counter' not in st.session_state: st.session_state.counter = 0
+
+if 'disable_counter' not in st.session_state: st.session_state.disable_counter = 0
 
 if 'annotation_finished' not in st.session_state: st.session_state.annotation_finished = 0
 
@@ -362,7 +388,11 @@ def main():
                             option_disabled1 = False
                         else:
                             option_disabled1 = True
-                    st.button("Issue level ➡️", disabled=option_disabled1, on_click=next_issue_level, use_container_width=True)
+                    st.button("Issue level ➡️", disabled=option_disabled1, on_click=next_issue_level, use_container_width=True, args=(current_issue_id,
+                                                                                                                                comment_id,
+                                                                                                                                st.session_state.user_login,
+                                                                                                                                comment_annotation,
+                                                                                                                                comment_toxic))
                 primary_color = st.get_option("theme.primaryColor")
                 s = f"""
                 <style>
@@ -393,6 +423,7 @@ def main():
                                                                                                                                 comment_toxic))
 
             if not st.session_state.issue_level:
+                next_issue_disabled = True
                 st.info('Please indicate the derailment point, trigger, target, and consequences')
                 dps = ['']
                 for i in range(len(st.session_state.comments_on_screen)):
@@ -423,11 +454,21 @@ def main():
                     current_issue_id = user.get('current_issue_id')
                     end_issue_id = user.get('end_issue_id')
                     if current_issue_id != end_issue_id:
-                        st.button("Next Issue ✅", on_click=next_issue, use_container_width=True,
+                        print(option_consequences)
+                        if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
+                            next_issue_disabled = False
+                        st.button("Next Issue ✅", disabled=next_issue_disabled,
+                                  on_click=next_issue, use_container_width=True,
                                   args=(next_comment.issue_id, st.session_state.user_login, comment.issue_id, option_derail,
                                         option_trigger, str(option_target), str(option_consequences), additional_comments))
                     else:
-                        st.button("Finish Annotation ✅", on_click=finish_annotation, use_container_width=True)
+                        if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
+                            next_issue_disabled = False
+                        st.button("Finish Annotation ✅", disabled=next_issue_disabled,
+                                  on_click=finish_annotation, use_container_width=True,
+                                  args=(st.session_state.user_login, comment.issue_id, option_derail,
+                                        option_trigger, str(option_target), str(option_consequences), additional_comments))
+
         # with cols[1]:
         #     dps = []
         #     for i in range(len(st.session_state.comments_on_screen)):
