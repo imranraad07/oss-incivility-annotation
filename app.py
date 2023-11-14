@@ -40,8 +40,8 @@ class AnnotatedComment:
     toxic = "None"
 
 
-df_comments = pd.read_csv('comments_v2.csv')
-df_issues = pd.read_csv('merged_threads_v2_1.csv')
+df_comments = pd.read_csv('comments_v2_5.csv')
+df_issues = pd.read_csv('merged_threads_v2_5.csv')
 
 
 def next():
