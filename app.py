@@ -138,8 +138,6 @@ if 'annotation_finished' not in st.session_state: st.session_state.annotation_fi
 
 if 'logged_in' not in st.session_state: st.session_state.logged_in = 0
 
-if 'is_admin' not in st.session_state: st.session_state.is_admin = False
-
 if 'user_login' not in st.session_state: st.session_state.user_login = ''
 
 if 'issue_level' not in st.session_state: st.session_state.issue_level = 1
@@ -275,7 +273,6 @@ def main():
                     st.session_state.user_login = user_login
                     is_admin = user.get('is_admin')
                     if is_admin is False:
-                        st.session_state.is_admin = False
                         current_issue_id = user.get('current_issue_id')
                         end_issue_id = user.get('end_issue_id')
                         if current_issue_id == end_issue_id:
@@ -283,10 +280,9 @@ def main():
                         logged_in = 1
                         st.rerun()
                     else:
-                        st.session_state.is_admin = True
                         logged_in = 1
                         st.rerun()
-    elif st.session_state.is_admin is True:
+    elif st.session_state.user_login == 'db_admin':
         with open("annotation.db", "rb") as fp:
             btn = st.download_button(
                 label="Download db file",
