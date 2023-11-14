@@ -12,6 +12,7 @@ print(db.get_all_issue_annotations())
 # db.create_user('imran_123', 0, '352750519', '352750519', '1165880637')
 
 db.create_user('admin_db', 1, '', '', '')
+db.create_user('db_admin', 1, '', '', '')
 
 db.create_user('alhabbalbh', 0, 352750519, 613337048, 352750519)
 db.create_user('arevaloh', 0, 869840472, 549848681, 869840472)
