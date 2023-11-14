@@ -439,6 +439,8 @@ def main():
                 if st.session_state.toxic_comment_idx > 0:
                     upto_comment = st.session_state.toxic_comment_idx - 1
                 print("upto_comment:", upto_comment)
+                if upto_comment > len(st.session_state.comments_on_screen):
+                    upto_comment = len(st.session_state.comments_on_screen)
                 for i in range(upto_comment):
                     c = st.session_state.comments_on_screen[i]
                     dps.append("Comment {}, {}".format(i, c.annotation))
