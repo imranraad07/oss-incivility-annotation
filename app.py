@@ -50,7 +50,7 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
-    print(st.session_state.counter)
+    print(st.session_state.counter, issue_id, comment_id, user_login, tbdf, toxic)
 
     st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
     st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
@@ -66,6 +66,8 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
 
 def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, target, consequences,
                additional_comments):
+    print(st.session_state.counter, issue_id, derailment_point, user_login, trigger, target, consequences)
+
     st.session_state.counter += 1
     st.session_state.issue_level = 1
     st.session_state.comments_on_screen = []
@@ -86,6 +88,8 @@ def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, t
 
 def finish_annotation(user_login, issue_id, derailment_point, trigger, target, consequences,
                additional_comments):
+    print(st.session_state.counter, issue_id, derailment_point, user_login, trigger, target, consequences)
+
     st.session_state.counter += 1
     st.session_state.issue_level = 1
     st.session_state.comments_on_screen = []
@@ -414,9 +418,9 @@ def main():
                 comment_id = comment.comment_id
                 comment_annotation = comment.annotation
                 comment_toxic = comment.toxic
-                print('comment_id:' + str(comment_id))
-                print('comment_id:' + str(comment_annotation))
-                print('comment_id:' + str(comment_toxic))
+                # print('comment_id:' + str(comment_id))
+                # print('comment_id:' + str(comment_annotation))
+                # print('comment_id:' + str(comment_toxic))
                 if comment_annotation == '':
                     option_disabled = True
                 else:
@@ -474,7 +478,7 @@ def main():
                     current_issue_id = user.get('current_issue_id')
                     end_issue_id = user.get('end_issue_id')
                     if current_issue_id != end_issue_id:
-                        print(option_consequences)
+                        # print(option_consequences)
                         if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
                             next_issue_disabled = False
                         st.button("Next Issue ✅", disabled=next_issue_disabled,
