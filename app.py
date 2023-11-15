@@ -51,6 +51,7 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
+    print(st.session_state.counter)
 
     print(f"{st.session_state.counter}, {st.session_state.disable_counter}, {st.session_state.disable_counter}, {len(st.session_state.toxic_selection_done)}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
 
