@@ -260,7 +260,7 @@ def instructions():
 
 def main():
     inject_css()
-    print(st.session_state.logged_in)
+    print("logged in state: ", st.session_state.logged_in)
     logged_in = st.session_state.logged_in
     user_login = ''
     if not logged_in:
@@ -307,7 +307,7 @@ def main():
         else:
             user = db.get_user(st.session_state.user_login)
             current_issue_id = user.get('current_issue_id')
-            print(current_issue_id)
+            print("current issue:", current_issue_id)
             st.session_state.issue_id = current_issue_id
             while True:
                 comment = my_comments[st.session_state.counter % (len(my_comments))]
@@ -343,7 +343,7 @@ def main():
                 st.session_state.comments_on_screen.append(comment)
                 st.session_state.tbdf_selection_done.append(False)
                 st.session_state.toxic_selection_done.append(False)
-            print(len(st.session_state.comments_on_screen))
+            # print(len(st.session_state.comments_on_screen))
 
             with st.sidebar:
                 progress_text = "Comments remaining in this issue"
