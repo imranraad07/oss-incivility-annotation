@@ -135,6 +135,8 @@ def st_on_change(comment, option):
 
 if 'counter' not in st.session_state: st.session_state.counter = 0
 
+if "issue_id" not in st.session_state: st.session_state.issue_id = 0
+
 if 'disable_counter' not in st.session_state: st.session_state.disable_counter = 0
 
 if 'toxic_comment_idx' not in st.session_state: st.session_state.toxic_comment_idx = 0
@@ -146,9 +148,6 @@ if 'logged_in' not in st.session_state: st.session_state.logged_in = 0
 if 'user_login' not in st.session_state: st.session_state.user_login = ''
 
 if 'issue_level' not in st.session_state: st.session_state.issue_level = 1
-
-if "issue_id" not in st.session_state:
-    st.session_state.issue_id = 0
 
 if "comments_on_screen" not in st.session_state:
     comments_on_screen = []
@@ -276,11 +275,14 @@ def main():
                 else:
                     current_time = datetime.now().strftime("%H:%M:%S")
                     print(f"{user_login} Logged in at time: {current_time}")
+                    st.session_state.counter = 0
+                    st.session_state.issue_id = 0
                     st.session_state.logged_in = 1
                     st.session_state.user_login = user_login
                     is_admin = user.get('is_admin')
                     if is_admin is False:
                         current_issue_id = user.get('current_issue_id')
+                        st.session_state.issue_id = current_issue_id
                         end_issue_id = user.get('end_issue_id')
                         if current_issue_id == end_issue_id:
                             st.session_state.annotation_finished = 1
