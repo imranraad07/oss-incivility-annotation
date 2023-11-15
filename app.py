@@ -370,6 +370,7 @@ def main():
                 st.session_state.tbdf_selection_done.append(False)
                 st.session_state.toxic_selection_done.append(False)
             # print(len(st.session_state.comments_on_screen))
+            toxic_must_select = False
 
             with st.sidebar:
                 progress_text = "Comments remaining in this issue"
