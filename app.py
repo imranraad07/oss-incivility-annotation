@@ -54,13 +54,13 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
 
     print(f"{st.session_state.counter}, {st.session_state.disable_counter}, {st.session_state.disable_counter}, {len(st.session_state.toxic_selection_done)}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
 
-    if len(st.session_state.toxic_selection_done) >= st.session_state.disable_counter:
+    if len(st.session_state.toxic_selection_done) > st.session_state.disable_counter:
         st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.toxic_selection_done), st.session_state.disable_counter):
             st.session_state.toxic_selection_done.append(True)
 
-    if len(st.session_state.tbdf_selection_done) >= st.session_state.disable_counter:
+    if len(st.session_state.tbdf_selection_done) > st.session_state.disable_counter:
         st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.tbdf_selection_done), st.session_state.disable_counter):
@@ -120,18 +120,18 @@ def finish_annotation(user_login, issue_id, derailment_point, trigger, target, c
 
 
 def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
-    st.session_state.counter += 1
-    print(f"{st.session_state.counter}, {st.session_state.disable_counter}, {st.session_state.disable_counter}, {len(st.session_state.toxic_selection_done)}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
+    # st.session_state.counter += 1
+    print(f"At issue level: {st.session_state.counter}, {st.session_state.disable_counter}, {st.session_state.disable_counter}, {len(st.session_state.toxic_selection_done)}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
 
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
-    if len(st.session_state.toxic_selection_done) >= st.session_state.disable_counter:
+    if len(st.session_state.toxic_selection_done) > st.session_state.disable_counter:
         st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.toxic_selection_done), st.session_state.disable_counter):
             st.session_state.toxic_selection_done.append(True)
 
-    if len(st.session_state.tbdf_selection_done) >= st.session_state.disable_counter:
+    if len(st.session_state.tbdf_selection_done) > st.session_state.disable_counter:
         st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.tbdf_selection_done), st.session_state.disable_counter):
@@ -450,9 +450,6 @@ def main():
                 comment_id = comment.comment_id
                 comment_annotation = comment.annotation
                 comment_toxic = comment.toxic
-                # print('comment_id:' + str(comment_id))
-                # print('comment_id:' + str(comment_annotation))
-                # print('comment_id:' + str(comment_toxic))
                 if comment_annotation == '':
                     option_disabled = True
                 else:
