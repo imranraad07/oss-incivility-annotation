@@ -51,10 +51,20 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
-    print(st.session_state.counter, issue_id, comment_id, user_login, tbdf, toxic)
+    print(st.session_state.counter, st.session_state.disable_counter, st.session_state.toxic_selection_done.size(), issue_id, comment_id, user_login, tbdf, toxic, st.session_state.disable_counter)
 
-    st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
-    st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
+    if st.session_state.toxic_selection_done.size() >= st.session_state.disable_counter:
+        st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
+    else:
+        for i in range(len(st.session_state.toxic_selection_done), st.session_state.disable_counter):
+            st.session_state.toxic_selection_done.append(True)
+
+    if st.session_state.tbdf_selection_done.size() >= st.session_state.disable_counter:
+        st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
+    else:
+        for i in range(len(st.session_state.tbdf_selection_done), st.session_state.disable_counter):
+            st.session_state.tbdf_selection_done.append(True)
+
     st.session_state.disable_counter += 1
     st.session_state.counter += 1
     st.session_state.issue_level = 1
@@ -113,8 +123,18 @@ def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
 
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
-    st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
-    st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
+    if st.session_state.toxic_selection_done.size() >= st.session_state.disable_counter:
+        st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
+    else:
+        for i in range(len(st.session_state.toxic_selection_done), st.session_state.disable_counter):
+            st.session_state.toxic_selection_done.append(True)
+
+    if st.session_state.tbdf_selection_done.size() >= st.session_state.disable_counter:
+        st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
+    else:
+        for i in range(len(st.session_state.tbdf_selection_done), st.session_state.disable_counter):
+            st.session_state.tbdf_selection_done.append(True)
+
     st.session_state.disable_counter += 1
 
     if toxic == "Yes" and st.session_state.toxic_comment_idx == 0:
@@ -122,6 +142,9 @@ def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
 
     st.session_state.issue_level = 0
     st.session_state.disable_counter = 0
+    st.session_state.tbdf_selection_done = []
+    st.session_state.toxic_selection_done = []
+
 
 
 def prev():
@@ -276,6 +299,7 @@ def main():
                     current_time = datetime.now().strftime("%H:%M:%S")
                     print(f"{user_login} Logged in at time: {current_time}")
                     st.session_state.counter = 0
+                    st.session_state.disable_counter = 0
                     st.session_state.issue_id = 0
                     st.session_state.logged_in = 1
                     st.session_state.user_login = user_login
