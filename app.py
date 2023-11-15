@@ -279,9 +279,9 @@ def main():
                 if user is None:
                     st.toast('User not found!')
                 else:
-                    current_time = datetime.now().strftime("%H:%M:%S")
-                    print(f"{user_login} Logged in at time: {current_time}")
                     if st.session_state.logged_in == 0:
+                        current_time = datetime.now().strftime("%H:%M:%S")
+                        print(f"{user_login} Logged in at time: {current_time}")
                         st.session_state.counter = 0
                         st.session_state.disable_counter = 0
                         st.session_state.issue_id = 0
