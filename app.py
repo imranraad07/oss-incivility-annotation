@@ -358,6 +358,7 @@ def main():
                             """.format(comment.user_id, datetime_object, str(n))
                     st.write(metadata)
                     comment_body = comment.comment_body
+                    comment_body = str(comment_body)
                     comment_body = comment_body.replace("```", '').replace("##", '')
                     st.write(comment_body)
                     st.markdown('---')
