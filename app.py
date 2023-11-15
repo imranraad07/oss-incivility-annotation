@@ -3,6 +3,7 @@ import pandas as pd
 from dataclasses import dataclass
 from datetime import datetime
 from database import Database
+from datetime import datetime
 
 DATABASE_PATH = "annotation.db"
 db = Database(DATABASE_PATH)
@@ -273,6 +274,8 @@ def main():
                 if user is None:
                     st.toast('User not found!')
                 else:
+                    current_time = datetime.now().strftime("%H:%M:%S")
+                    print(f"{user_login} Logged in at time: {current_time}")
                     st.session_state.logged_in = 1
                     st.session_state.user_login = user_login
                     is_admin = user.get('is_admin')
