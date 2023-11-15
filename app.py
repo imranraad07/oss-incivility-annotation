@@ -51,15 +51,16 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
+    
     print(st.session_state.counter, st.session_state.disable_counter, len(st.session_state.toxic_selection_done), issue_id, comment_id, user_login, tbdf, toxic, st.session_state.disable_counter)
 
-    if st.session_state.toxic_selection_done.size() >= st.session_state.disable_counter:
+    if len(st.session_state.toxic_selection_done) >= st.session_state.disable_counter:
         st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.toxic_selection_done), st.session_state.disable_counter):
             st.session_state.toxic_selection_done.append(True)
 
-    if st.session_state.tbdf_selection_done.size() >= st.session_state.disable_counter:
+    if len(st.session_state.tbdf_selection_done) >= st.session_state.disable_counter:
         st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.tbdf_selection_done), st.session_state.disable_counter):
@@ -123,13 +124,13 @@ def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
 
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
-    if st.session_state.toxic_selection_done.size() >= st.session_state.disable_counter:
+    if len(st.session_state.toxic_selection_done) >= st.session_state.disable_counter:
         st.session_state.toxic_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.toxic_selection_done), st.session_state.disable_counter):
             st.session_state.toxic_selection_done.append(True)
 
-    if st.session_state.tbdf_selection_done.size() >= st.session_state.disable_counter:
+    if len(st.session_state.tbdf_selection_done) >= st.session_state.disable_counter:
         st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
     else:
         for i in range(len(st.session_state.tbdf_selection_done), st.session_state.disable_counter):
