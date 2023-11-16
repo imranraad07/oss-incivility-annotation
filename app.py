@@ -103,6 +103,8 @@ def finish_annotation(user_login, issue_id, derailment_point, trigger, target, c
     db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences,
                                additional_comments)
     
+    end_annotation(st.session_state.user_login)
+
     st.session_state.annotation_finished = 1
 
 
@@ -128,6 +130,9 @@ def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
     st.session_state.issue_level = 0
     st.session_state.disable_counter = 0
 
+def end_annotation(user):
+    print(user)
+    db.update_wrap_annotaion(user)
 
 def prev():
     if st.session_state.counter != 0:
@@ -288,14 +293,17 @@ def main():
                     st.session_state.logged_in = 1
                     st.session_state.user_login = user_login
                     is_admin = user.get('is_admin')
-                    if is_admin is False:
+                    if is_admin == 2:
+                        st.session_state.annotation_finished = 1
+                        st.rerun()
+                    elif is_admin == 0:
                         current_issue_id = user.get('current_issue_id')
                         end_issue_id = user.get('end_issue_id')
                         if current_issue_id == end_issue_id:
                             st.session_state.annotation_finished = 1
                         logged_in = 1
                         st.rerun()
-                    else:
+                    elif is_admin == 1:
                         logged_in = 1
                         st.rerun()
     elif st.session_state.user_login == 'db_admin':
@@ -311,6 +319,7 @@ def main():
             st.empty()
             st.markdown('# Annotations Completed! Thanks for your participation!')
             st.balloons()
+
         else:
             user = db.get_user(st.session_state.user_login)
             current_issue_id = user.get('current_issue_id')

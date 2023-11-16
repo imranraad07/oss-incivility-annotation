@@ -65,6 +65,13 @@ class Database:
             "UPDATE users SET current_issue_id = ? WHERE user_login = ?;",
             [current_issue, user_login]
         )
+    
+    def update_wrap_annotaion(self, user_login):
+        return self.execute(
+            "UPDATE users SET is_admin = ? WHERE user_login = ?;",
+            [2, user_login]
+        )
+
 
     def get_all_users(self):
         data = self.select("SELECT * FROM users;")
