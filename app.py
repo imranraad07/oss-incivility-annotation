@@ -341,15 +341,6 @@ def main():
             for issue in issues:
                 issue_titles[issue.get('issue_id')] = issue.get('issue_title')
 
-            # if comment.issue_id != st.session_state.issue_id:
-            #     st.session_state.comments_on_screen = []
-
-            # st.session_state.issue_id = comment.issue_id
-
-            # if next_comment.issue_id != st.session_state.issue_id:
-            #     if len(st.session_state.comments_on_screen) != 0:
-            #         st.info('Please indicate the derailment point, trigger, target, and consequences')
-
             st.write("""
                      # Issue {}
                      ## {}
@@ -365,16 +356,28 @@ def main():
             print(len(st.session_state.comments_on_screen))
 
             with st.sidebar:
-                progress_text = "Comments remaining in this issue"
-                all_comments_to_display = []
-                for comment in my_comments:
-                    if comment.issue_id == st.session_state.issue_id:
-                        all_comments_to_display.append(comment)
-                my_bar = st.progress(0, text=progress_text)
-                percent = (len(st.session_state.comments_on_screen)) / len(all_comments_to_display)
-                if percent == 1:
-                    progress_text = "Comments completed!"
-                my_bar.progress((len(st.session_state.comments_on_screen)) / len(all_comments_to_display), progress_text)
+                
+                index_of_last_issue = df_issues.index[df_issues['issue_id'] == user.get('end_issue_id')].tolist()
+                last_position = 0
+                if len(index_of_last_issue) > 0:
+                    last_position = index_of_last_issue[0]
+                cur_position = 0
+                index_of_value = df_issues.index[df_issues['issue_id'] == st.session_state.issue_id].tolist()
+                if len(index_of_value) > 0:
+                    cur_position = index_of_value[0]
+                
+                remaining = last_position - cur_position + 1
+
+                progress_text = f"Number of issues remaining: {remaining}"
+                progress_text = progress_text + "\n\n Comments remaining in this issue"
+
+                total_comments_counter = (df_comments['issue_id'] == st.session_state.issue_id).sum()
+                if total_comments_counter > 0:
+                    my_bar = st.progress(0, text=progress_text)
+                    percent = (len(st.session_state.comments_on_screen)) / total_comments_counter
+                    if percent == 1:
+                        progress_text = "Comments completed!"
+                    my_bar.progress((len(st.session_state.comments_on_screen)) / total_comments_counter, progress_text)
                 st.write(instructions())
 
             toxic_must_select = False
@@ -409,8 +412,6 @@ def main():
                             comment.toxic = ''
 
                     n += 1
-                # if comment.annotation == 'Other':
-                #     comment.annotation_other = st.text_input('Enter TBDF')
 
             if next_comment.issue_id != st.session_state.issue_id:
                 if st.session_state.issue_level == 1:
@@ -442,9 +443,6 @@ def main():
                 comment_id = comment.comment_id
                 comment_annotation = comment.annotation
                 comment_toxic = comment.toxic
-                # print('comment_id:' + str(comment_id))
-                # print('comment_id:' + str(comment_annotation))
-                # print('comment_id:' + str(comment_toxic))
                 if comment_annotation == '':
                     option_disabled = True
                 else:
@@ -462,7 +460,7 @@ def main():
             if not st.session_state.issue_level:
                 next_issue_disabled = True
                 st.info('Please indicate the derailment point, trigger, target, and consequences')
-                dps = ['']
+                dps = ['', 'None']
                 upto_comment = 0
                 # upto_comment = len(st.session_state.comments_on_screen)
                 if st.session_state.toxic_comment_idx > 0:
@@ -518,41 +516,6 @@ def main():
                                   on_click=finish_annotation, use_container_width=True,
                                   args=(st.session_state.user_login, comment.issue_id, option_derail,
                                         option_trigger, str(option_target), str(option_consequences), additional_comments))
-
-        # with cols[1]:
-        #     dps = []
-        #     for i in range(len(st.session_state.comments_on_screen)):
-        #         c = st.session_state.comments_on_screen[i]
-        #         dps.append("Comment {}, {}".format(i, c.annotation))
-        #     option_derail = st.selectbox(
-        #         'Derailment Point',
-        #         dps,
-        #         disabled=st.session_state.issue_level,
-        #         key='derailment point')
-        #     option_trigger = st.selectbox(
-        #         'Trigger',
-        #         triggers,
-        #         disabled=st.session_state.issue_level,
-        #         key='option_trigger')
-        #     option_target = st.selectbox(
-        #         'Target',
-        #         targets,
-        #         disabled=st.session_state.issue_level,
-        #         key='option_target')
-        #     option_consequences = st.multiselect(
-        #         'Consequences',
-        #         consequences,
-        #         disabled=st.session_state.issue_level,
-        #         key='option_consequences')
-        #     if st.session_state.issue_level == 0:
-        #         st.button("Next Issue ✅", on_click=next_issue, use_container_width=True,
-        #                   args=(st.session_state.user_login, next_comment.issue_id, option_derail,
-        #                         option_trigger, str(option_target), str(option_consequences)))
-
-    # Using "with" notation
-
-    # with cols[0]:
-    #     st.button("⬅️ Previous", on_click=prev, use_container_width=True)
 
 
 if __name__ == "__main__":
