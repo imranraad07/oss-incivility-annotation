@@ -60,8 +60,10 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
     st.session_state.counter += 1
     st.session_state.issue_level = 1
 
-    if toxic == "Yes" and st.session_state.toxic_comment_idx == 0:
-        st.session_state.toxic_comment_idx = st.session_state.disable_counter
+    if toxic == "Yes":
+        if st.session_state.toxic_comment_idx == 0:
+            print(f"Setting the toxic idx at {st.session_state.disable_counter}, total count: {st.session_state.counter}, comment count: {len(st.session_state.comments_on_screen)}")
+            st.session_state.toxic_comment_idx = st.session_state.disable_counter
 
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
@@ -76,6 +78,7 @@ def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, t
     st.session_state.comments_on_screen = []
     st.session_state.tbdf_selection_done = []
     st.session_state.toxic_selection_done = []
+    st.session_state.toxic_comment_idx = 0
     db.update_current_issue(user_login, next_issue_id)
     db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences,
                                additional_comments)
@@ -464,7 +467,7 @@ def main():
                 # upto_comment = len(st.session_state.comments_on_screen)
                 if st.session_state.toxic_comment_idx > 0:
                     upto_comment = st.session_state.toxic_comment_idx - 1
-                print("upto_comment:", upto_comment)
+                print("upto_comment:", upto_comment, "toxic_comment_idx:", st.session_state.toxic_comment_idx)
 
                 if upto_comment > len(st.session_state.comments_on_screen):
                     upto_comment = len(st.session_state.comments_on_screen)
