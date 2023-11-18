@@ -1,5 +1,5 @@
 import sqlite3
-
+import pandas as pd
 
 class Database:
     def __init__(self, path):
@@ -86,6 +86,18 @@ class Database:
             }
             users.append(retval)
         return users
+
+    def get_all_annotated_issues(self):
+        c = self.conn.cursor()
+        data = c.execute("SELECT * FROM annotated_issues").fetchall()
+        # Get column names from the cursor description
+        columns = [column[0] for column in c.description]
+        return data, columns
+
+        # # Create a Pandas DataFrame with the data and column names
+        # df = pd.DataFrame(data, columns=columns)
+
+
 
     def insert_comment_annotation(self, issue_id, comment_id, user_login, tbdf, toxic):
         return self.execute(

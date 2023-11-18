@@ -317,6 +317,21 @@ def main():
                 file_name="annotation.db",
                 mime="application/octet-stream"
             )
+        # Display Student Table
+        st.subheader('Annotated Issues')
+        all_issues = db.get_all_annotated_issues()
+        all_issues = pd.DataFrame(all_issues[0], columns=all_issues[1])
+        st.table(all_issues)
+        # Add a download button
+        csv_data = all_issues.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="Download annodated issues",
+            data=csv_data,
+            file_name='annotated_issues.csv',
+            key='download_button'
+        )
+
+
     else:
         if st.session_state.annotation_finished:
             st.empty()
