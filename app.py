@@ -325,7 +325,7 @@ def main():
             label="Download annodated issues",
             data=csv_data,
             file_name='annotated_issues.csv',
-            key='download_button'
+            # key='download_button_issues'
         )
 
         all_comments= db.get_all_annotated_comments()
@@ -335,7 +335,7 @@ def main():
             label="Download annodated comments",
             data=csv_data_comments,
             file_name='annotated_comments.csv',
-            key='download_button'
+            # key='download_button_comments'
         )
 
         st.subheader('Annotated Issues')
