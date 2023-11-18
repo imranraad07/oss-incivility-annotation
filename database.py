@@ -94,8 +94,12 @@ class Database:
         columns = [column[0] for column in c.description]
         return data, columns
 
-        # # Create a Pandas DataFrame with the data and column names
-        # df = pd.DataFrame(data, columns=columns)
+    def get_all_annotated_comments(self):
+        c = self.conn.cursor()
+        data = c.execute("SELECT * FROM annotated_comments").fetchall()
+        # Get column names from the cursor description
+        columns = [column[0] for column in c.description]
+        return data, columns
 
 
 

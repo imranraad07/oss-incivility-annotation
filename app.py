@@ -317,12 +317,9 @@ def main():
                 file_name="annotation.db",
                 mime="application/octet-stream"
             )
-        # Display Student Table
-        st.subheader('Annotated Issues')
+
         all_issues = db.get_all_annotated_issues()
         all_issues = pd.DataFrame(all_issues[0], columns=all_issues[1])
-        st.table(all_issues)
-        # Add a download button
         csv_data = all_issues.to_csv(index=False).encode('utf-8')
         st.download_button(
             label="Download annodated issues",
@@ -330,6 +327,21 @@ def main():
             file_name='annotated_issues.csv',
             key='download_button'
         )
+
+        all_comments= db.get_all_annotated_comments()
+        all_comments = pd.DataFrame(all_comments[0], columns=all_comments[1])
+        csv_data_comments = all_issues.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="Download annodated comments",
+            data=csv_data_comments,
+            file_name='annotated_comments.csv',
+            key='download_button'
+        )
+
+        st.subheader('Annotated Issues')
+        st.table(all_issues)
+        st.subheader('Annotated Comments')
+        st.table(all_comments)
 
 
     else:
