@@ -342,8 +342,8 @@ def main():
 
         st.subheader('Annotated Issues')
         st.table(all_issues)
-        st.subheader('Annotated Comments')
-        st.table(all_comments)
+        # st.subheader('Annotated Comments')
+        # st.table(all_comments)
 
 
     else:
