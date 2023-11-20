@@ -79,9 +79,11 @@ def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, t
     st.session_state.tbdf_selection_done = []
     st.session_state.toxic_selection_done = []
     st.session_state.toxic_comment_idx = 0
-    db.update_current_issue(user_login, next_issue_id)
-    db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences,
-                               additional_comments)
+    # db.update_current_issue(user_login, next_issue_id)
+    db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences, additional_comments)
+    current_annotation_id = db.currently_annotating(st.session_state.user_login)[0]
+    db.current_issue_done(current_annotation_id)
+
     js = '''
                     <script>
                         var body = window.parent.document.querySelector(".main");
@@ -105,7 +107,11 @@ def finish_annotation(user_login, issue_id, derailment_point, trigger, target, c
     
     db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences,
                                additional_comments)
-    
+  
+    current_annotation_id = db.currently_annotating(st.session_state.user_login)[0]
+    print(current_annotation_id)
+    db.current_issue_done(current_annotation_id)
+
     end_annotation(st.session_state.user_login)
 
     st.session_state.annotation_finished = 1
@@ -300,10 +306,6 @@ def main():
                         st.session_state.annotation_finished = 1
                         st.rerun()
                     elif is_admin == 0:
-                        current_issue_id = user.get('current_issue_id')
-                        end_issue_id = user.get('end_issue_id')
-                        if current_issue_id == end_issue_id:
-                            st.session_state.annotation_finished = 1
                         logged_in = 1
                         st.rerun()
                     elif is_admin == 1:
@@ -351,13 +353,29 @@ def main():
             st.balloons()
 
         else:
-            user = db.get_user(st.session_state.user_login)
-            current_issue_id = user.get('current_issue_id')
-            print("current issue:", current_issue_id)
-            st.session_state.issue_id = current_issue_id
+            if db.currently_annotating(st.session_state.user_login) == None:
+                next_available_issue_id = db.get_next_avaiable_issue()
+                print(f"next_available_issue_id: {next_available_issue_id}")
+                if next_available_issue_id != None:
+                    next_available_issue_id = next_available_issue_id[0]
+                    db.assigning_next_avaiable_issue(st.session_state.user_login, next_available_issue_id)
+                else:
+                    print("Assigning an old issue!")
+                    db.assigning_an_old_issue(st.session_state.user_login)
+
+            currently_annotating_issue_id = db.currently_annotating(st.session_state.user_login)
+            if currently_annotating_issue_id == None:
+                print(f"currently_annotating_issue_id is None")
+            else:
+                currently_annotating_issue_id = currently_annotating_issue_id[0]
+                print(f"currently_annotating_issue_id: {currently_annotating_issue_id}")
+
+
+            print("current issue:", currently_annotating_issue_id)
+            st.session_state.issue_id = currently_annotating_issue_id
             while True:
                 comment = my_comments[st.session_state.counter % (len(my_comments))]
-                if comment.issue_id != current_issue_id:
+                if comment.issue_id != currently_annotating_issue_id:
                     next()
                 else:
                     break
@@ -384,16 +402,16 @@ def main():
 
             with st.sidebar:
                 
-                index_of_last_issue = df_issues.index[df_issues['issue_id'] == user.get('end_issue_id')].tolist()
-                last_position = 0
-                if len(index_of_last_issue) > 0:
-                    last_position = index_of_last_issue[0]
-                cur_position = 0
-                index_of_value = df_issues.index[df_issues['issue_id'] == st.session_state.issue_id].tolist()
-                if len(index_of_value) > 0:
-                    cur_position = index_of_value[0]
+                # index_of_last_issue = df_issues.index[df_issues['issue_id'] == user.get('end_issue_id')].tolist()
+                # last_position = 0
+                # if len(index_of_last_issue) > 0:
+                #     last_position = index_of_last_issue[0]
+                # cur_position = 0
+                # index_of_value = df_issues.index[df_issues['issue_id'] == st.session_state.issue_id].tolist()
+                # if len(index_of_value) > 0:
+                #     cur_position = index_of_value[0]
                 
-                remaining = last_position - cur_position + 1
+                remaining = 20 - db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
 
                 progress_text = f"Number of issues remaining: {remaining}"
                 progress_text = progress_text + "\n\n Comments remaining in this issue"
@@ -453,7 +471,7 @@ def main():
                             option_disabled1 = False
                         else:
                             option_disabled1 = True
-                    st.button("Issue level ➡️", disabled=option_disabled1, on_click=next_issue_level, use_container_width=True, args=(current_issue_id,
+                    st.button("Issue level ➡️", disabled=option_disabled1, on_click=next_issue_level, use_container_width=True, args=(currently_annotating_issue_id,
                                                                                                                                 comment_id,
                                                                                                                                 st.session_state.user_login,
                                                                                                                                 comment_annotation,
@@ -478,7 +496,7 @@ def main():
                     else:
                         option_disabled = True
 
-                st.button("Next Comment ⬇️", disabled=option_disabled, on_click=insert_comment, use_container_width=True, args=(current_issue_id, 
+                st.button("Next Comment ⬇️", disabled=option_disabled, on_click=insert_comment, use_container_width=True, args=(currently_annotating_issue_id, 
                                                                                                                                 comment_id, 
                                                                                                                                 st.session_state.user_login, 
                                                                                                                                 comment_annotation, 
@@ -526,10 +544,9 @@ def main():
                     key='option_consequences' + str(st.session_state.issue_id))
                 additional_comments = st.text_input('Additional Comments', key='additional_comments' + str(st.session_state.issue_id))
                 if st.session_state.issue_level == 0:
-                    current_issue_id = user.get('current_issue_id')
-                    end_issue_id = user.get('end_issue_id')
-                    if current_issue_id != end_issue_id:
-#                        print(option_consequences)
+                    total_annotated_issues = db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
+                    print(f"total_annotated_issues: {total_annotated_issues}")
+                    if total_annotated_issues < 19:
                         if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
                             next_issue_disabled = False
                         st.button("Next Issue ✅", disabled=next_issue_disabled,

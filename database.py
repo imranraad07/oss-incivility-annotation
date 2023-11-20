@@ -24,6 +24,14 @@ class Database:
         c.execute(
             "CREATE TABLE IF NOT EXISTS annotated_issues(id INTEGER PRIMARY KEY, issue_id INTEGER not null, user_login TEXT not null, derailment_point TEXT not null, trigger TEXT not null, target TEXT not null, consequences TEXT not null, additional_comments TEXT not null);"
         )
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS issue_log(id INTEGER PRIMARY KEY, \
+            issue_id INTEGER not null, \
+            is_annotated INTEGER not null, \
+            is_annotating INTEGER not null, \
+            annotating_by TEXT);"
+        )
+
 
     def select(self, sql, parameters=[]):
         c = self.conn.cursor()
@@ -44,6 +52,56 @@ class Database:
             "INSERT INTO users (user_login, is_admin, start_issue_id, end_issue_id, current_issue_id) VALUES (?, ?, ?, ?, ?)",
             [user_login, is_admin, start_issue, end_issue, current_issue],
         )
+
+    def get_number_of_issues_annotated_by_user(self, user_login):
+        query = f"SELECT COUNT(*) FROM issue_log WHERE annotating_by = ? AND is_annotated = 1;"
+        c = self.conn.cursor()
+        c.execute(query, (user_login,))
+        result = c.fetchone()
+        return result[0]
+
+    def currently_annotating(self, user_login):
+        query = f"SELECT issue_id FROM issue_log WHERE annotating_by = ? AND is_annotating = 1;"
+        c = self.conn.cursor()
+        c.execute(query, (user_login,))
+        result = c.fetchone()
+        return result
+
+    def get_next_avaiable_issue(self):
+        query = f"SELECT issue_id FROM issue_log WHERE is_annotated = 0 AND annotating_by = '' LIMIT 1;"
+        c = self.conn.cursor()
+        c.execute(query)
+        result = c.fetchone()
+        return result
+
+    def assigning_next_avaiable_issue(self, user_login, issue_id):
+        update_query = "UPDATE issue_log SET is_annotating = 1, annotating_by = ? WHERE issue_id = ? AND is_annotated = 0;"
+        c = self.conn.cursor()
+        c.execute(update_query, (user_login, issue_id))
+        self.conn.commit()
+        return c.rowcount > 0
+
+    
+    def assigning_an_old_issue(self, user_login):
+        query = f"SELECT issue_id FROM issue_log WHERE is_annotated = 1 AND annotating_by != ? LIMIT 1;"
+        c = self.conn.cursor()
+        c.execute(query, (user_login,))
+        result = c.fetchone()
+        issue_id = result[0]
+
+        update_query = "UPDATE issue_log SET is_annotating = 1, annotating_by = ?, is_annotated = 0 WHERE issue_id = ?;"
+        c = self.conn.cursor()
+        c.execute(update_query, (user_login, issue_id))
+        self.conn.commit()
+        return c.rowcount > 0
+
+
+    def current_issue_done(self, issue_id):
+        update_query = "UPDATE issue_log SET is_annotated = 1, is_annotating = 0 WHERE issue_id = ?;"
+        c = self.conn.cursor()
+        c.execute(update_query, (issue_id,))
+        self.conn.commit()
+        return c.rowcount > 0
 
     def get_user(self, user_login):
         data = self.select("SELECT * FROM users WHERE user_login = ?;", [user_login])
