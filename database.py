@@ -9,9 +9,7 @@ class Database:
             "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, \
             user_login TEXT UNIQUE not null, \
             is_admin INTEGER not null, \
-            start_issue_id INTEGER not null, \
-            end_issue_id INTEGER not null, \
-            current_issue_id INTEGER not null);"
+            annotation_count INTEGER not null);"
         )
         c.execute(
             "CREATE TABLE IF NOT EXISTS annotated_comments(id INTEGER PRIMARY KEY, \
@@ -47,18 +45,12 @@ class Database:
     def close(self):
         self.conn.close()
 
-    def create_user(self, user_login, is_admin, start_issue, end_issue, current_issue):
+    def create_user(self, user_login, is_admin, annotation_count):
         return self.execute(
-            "INSERT INTO users (user_login, is_admin, start_issue_id, end_issue_id, current_issue_id) VALUES (?, ?, ?, ?, ?)",
-            [user_login, is_admin, start_issue, end_issue, current_issue],
+            "INSERT INTO users (user_login, is_admin, annotation_count) VALUES (?, ?, ?)",
+            [user_login, is_admin, annotation_count],
         )
 
-    def get_number_of_issues_annotated_by_user(self, user_login):
-        query = f"SELECT COUNT(*) FROM issue_log WHERE annotating_by = ? AND is_annotated = 1;"
-        c = self.conn.cursor()
-        c.execute(query, (user_login,))
-        result = c.fetchone()
-        return result[0]
 
     def currently_annotating(self, user_login):
         query = f"SELECT issue_id FROM issue_log WHERE annotating_by = ? AND is_annotating = 1;"
@@ -110,20 +102,12 @@ class Database:
             retval = {
                 "user_login": d[1],
                 "is_admin": d[2],
-                "start_issue_id": d[3],
-                "end_issue_id": d[4],
-                "current_issue_id": d[5]
+                "annotation_count": d[3]
             }
             return retval
         else:
             return None
 
-    def update_current_issue(self, user_login, current_issue):
-        return self.execute(
-            "UPDATE users SET current_issue_id = ? WHERE user_login = ?;",
-            [current_issue, user_login]
-        )
-    
     def update_wrap_annotaion(self, user_login):
         return self.execute(
             "UPDATE users SET is_admin = ? WHERE user_login = ?;",
@@ -138,12 +122,34 @@ class Database:
             retval = {
                 "user_login": d[1],
                 "is_admin": d[2],
-                "start_issue_id": d[3],
-                "end_issue_id": d[4],
-                "current_issue_id": d[5]
+                "annotation_count": d[3]
             }
             users.append(retval)
         return users
+    
+    def update_annotation_count(self, user_login):
+        return self.execute(
+            "UPDATE users SET annotation_count = annotation_count + 1 WHERE user_login = ?;",
+            [user_login]
+        )
+
+    def get_annotation_count(self):
+        data = self.select("SELECT * FROM users WHERE annotation_count > 0 ORDER BY annotation_count;")
+        users = []
+        for d in data:
+            retval = {
+                "user_login": d[1],
+                "annotation_count": d[3]
+            }
+            users.append(retval)
+        return users
+
+    def get_number_of_issues_annotated_by_user(self, user_login):
+        query = f"SELECT annotation_count FROM users WHERE user_login = ?;"
+        c = self.conn.cursor()
+        c.execute(query, (user_login,))
+        result = c.fetchone()
+        return result[0]
 
     def get_all_annotated_issues(self):
         c = self.conn.cursor()
@@ -158,8 +164,6 @@ class Database:
         # Get column names from the cursor description
         columns = [column[0] for column in c.description]
         return data, columns
-
-
 
     def insert_comment_annotation(self, issue_id, comment_id, user_login, tbdf, toxic):
         return self.execute(

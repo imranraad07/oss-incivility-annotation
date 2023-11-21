@@ -68,7 +68,7 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
 
-def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, target, consequences,
+def next_issue(user_login, issue_id, derailment_point, trigger, target, consequences,
                additional_comments):
 
     print(f"{st.session_state.counter}, {issue_id}, {derailment_point}, {user_login}, {trigger}, {target}, {consequences}, {additional_comments}")
@@ -83,6 +83,7 @@ def next_issue(next_issue_id, user_login, issue_id, derailment_point, trigger, t
     db.insert_issue_annotation(issue_id, user_login, derailment_point, trigger, target, consequences, additional_comments)
     current_annotation_id = db.currently_annotating(st.session_state.user_login)[0]
     db.current_issue_done(current_annotation_id)
+    db.update_annotation_count(user_login)
 
     js = '''
                     <script>
@@ -111,6 +112,7 @@ def finish_annotation(user_login, issue_id, derailment_point, trigger, target, c
     current_annotation_id = db.currently_annotating(st.session_state.user_login)[0]
     print(current_annotation_id)
     db.current_issue_done(current_annotation_id)
+    db.update_annotation_count(user_login)
 
     end_annotation(st.session_state.user_login)
 
@@ -320,6 +322,30 @@ def main():
                 mime="application/octet-stream"
             )
 
+
+        all_users_annotation_count = db.get_annotation_count()
+        all_users_annotation_count = pd.DataFrame(all_users_annotation_count)
+        st.subheader('User Annotaiton Count')
+        st.table(all_users_annotation_count)
+
+
+        st.subheader('Input Select SQL:')
+        # Use st.form to create a form
+        with st.form("sql_form"):
+            # Add form components
+            sql = st.text_input("Input Select SQL:", max_chars=1000)
+            submitted = st.form_submit_button("sql_submit")
+        if submitted:
+            sql = sql.strip().lower()
+            if sql.startswith("select"):
+                try:
+                    results = db.select(sql)
+                    st.table(results)
+                except:
+                    st.success(f"Error with query: {sql}")
+            else:
+                st.success(f"Not a select query: {sql}")
+
         all_issues = db.get_all_annotated_issues()
         all_issues = pd.DataFrame(all_issues[0], columns=all_issues[1])
         csv_data = all_issues.to_csv(index=False).encode('utf-8')
@@ -329,9 +355,6 @@ def main():
             file_name='annotated_issues.csv',
             # key='download_button_issues'
         )
-
-        st.subheader('Annotated Issues')
-        st.table(all_issues)
 
         all_comments= db.get_all_annotated_comments()
         all_comments = pd.DataFrame(all_comments[0], columns=all_comments[1])
@@ -345,9 +368,22 @@ def main():
             # key='download_button_comments'
         )
 
-        st.subheader('All Comments')
-        st.table(merged_df)
+        st.subheader('Annotated Issues')
+        st.table(all_issues)
 
+        with st.form("Comments on This Issue:"):
+            # Add form components
+            issue_id = st.text_input("Input Issue Id:", max_chars=20)
+            comments_submitted = st.form_submit_button("comments_of_an_issue_submit")
+        if comments_submitted:
+            # Specify the column and the target value for filtering
+            column_to_filter = 'issue_id'
+            target_value = int(issue_id)
+            filtered_rows = merged_df[merged_df[column_to_filter] == target_value]
+            st.table(filtered_rows)
+
+        # st.subheader('All Comments')
+        # st.table(merged_df)
 
     else:
         if st.session_state.annotation_finished:
@@ -405,18 +441,9 @@ def main():
 
             with st.sidebar:
                 
-                # index_of_last_issue = df_issues.index[df_issues['issue_id'] == user.get('end_issue_id')].tolist()
-                # last_position = 0
-                # if len(index_of_last_issue) > 0:
-                #     last_position = index_of_last_issue[0]
-                # cur_position = 0
-                # index_of_value = df_issues.index[df_issues['issue_id'] == st.session_state.issue_id].tolist()
-                # if len(index_of_value) > 0:
-                #     cur_position = index_of_value[0]
-                
-                remaining = 20 - db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
+                annotated = db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
 
-                progress_text = f"Number of issues remaining: {remaining}"
+                progress_text = f"Number of issues annotated: {annotated}\n\n Number of issues remaining: {20 - annotated}"
                 progress_text = progress_text + "\n\n Comments remaining in this issue"
 
                 total_comments_counter = (df_comments['issue_id'] == st.session_state.issue_id).sum()
@@ -554,7 +581,7 @@ def main():
                             next_issue_disabled = False
                         st.button("Next Issue ✅", disabled=next_issue_disabled,
                                   on_click=next_issue, use_container_width=True,
-                                  args=(next_comment.issue_id, st.session_state.user_login, comment.issue_id, option_derail,
+                                  args=(st.session_state.user_login, comment.issue_id, option_derail,
                                         option_trigger, str(option_target), str(option_consequences), additional_comments))
                     else:
                         if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
