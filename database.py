@@ -7,9 +7,9 @@ class Database:
         c = self.conn.cursor()
         c.execute(
             "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, \
-            user_login TEXT UNIQUE not null, \
-            is_admin INTEGER not null, \
-            annotation_count INTEGER not null);"
+                user_login TEXT UNIQUE not null, \
+                is_admin INTEGER not null, \
+                annotation_count INTEGER not null);"
         )
         c.execute(
             "CREATE TABLE IF NOT EXISTS annotated_comments(id INTEGER PRIMARY KEY, \
@@ -20,14 +20,21 @@ class Database:
                 toxic TEXT not null);"
         )
         c.execute(
-            "CREATE TABLE IF NOT EXISTS annotated_issues(id INTEGER PRIMARY KEY, issue_id INTEGER not null, user_login TEXT not null, derailment_point TEXT not null, trigger TEXT not null, target TEXT not null, consequences TEXT not null, additional_comments TEXT not null);"
+            "CREATE TABLE IF NOT EXISTS annotated_issues(id INTEGER PRIMARY KEY, \
+                issue_id INTEGER not null, \
+                user_login TEXT not null, \
+                derailment_point TEXT not null, \
+                trigger TEXT not null, \
+                target TEXT not null, \
+                consequences TEXT not null, \
+                additional_comments TEXT not null);"
         )
         c.execute(
             "CREATE TABLE IF NOT EXISTS issue_log(id INTEGER PRIMARY KEY, \
-            issue_id INTEGER not null, \
-            is_annotated INTEGER not null, \
-            is_annotating INTEGER not null, \
-            annotating_by TEXT);"
+                issue_id INTEGER not null, \
+                is_annotated INTEGER not null, \
+                is_annotating INTEGER not null, \
+                annotating_by TEXT);"
         )
 
 
