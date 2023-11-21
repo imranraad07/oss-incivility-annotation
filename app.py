@@ -332,7 +332,7 @@ def main():
 
         all_comments= db.get_all_annotated_comments()
         all_comments = pd.DataFrame(all_comments[0], columns=all_comments[1])
-        csv_data_comments = all_issues.to_csv(index=False).encode('utf-8')
+        csv_data_comments = all_comments.to_csv(index=False).encode('utf-8')
         st.download_button(
             label="Download annodated comments",
             data=csv_data_comments,
