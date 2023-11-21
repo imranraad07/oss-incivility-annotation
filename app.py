@@ -334,7 +334,7 @@ def main():
         with st.form("sql_form"):
             # Add form components
             sql = st.text_input("Input Select SQL:", max_chars=1000)
-            submitted = st.form_submit_button("sql_submit")
+            submitted = st.form_submit_button("Submit SQL")
         if submitted:
             sql = sql.strip().lower()
             if sql.startswith("select"):
