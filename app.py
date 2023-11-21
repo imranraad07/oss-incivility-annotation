@@ -372,15 +372,16 @@ def main():
         st.table(all_issues)
 
         with st.form("Comments on This Issue:"):
-            # Add form components
             issue_id = st.text_input("Input Issue Id:", max_chars=20)
             comments_submitted = st.form_submit_button("Comments on This Issue")
         if comments_submitted:
-            # Specify the column and the target value for filtering
-            column_to_filter = 'issue_id'
-            target_value = int(issue_id)
-            filtered_rows = merged_df[merged_df[column_to_filter] == target_value]
-            st.table(filtered_rows)
+            try:
+                column_to_filter = 'issue_id'
+                target_value = int(issue_id)
+                filtered_rows = merged_df[merged_df[column_to_filter] == target_value]
+                st.table(filtered_rows)
+            except:
+                st.success(f"Error with Issue Id: {issue_id}")
 
         # st.subheader('All Comments')
         # st.table(merged_df)
