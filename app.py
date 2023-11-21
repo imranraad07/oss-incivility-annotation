@@ -374,7 +374,7 @@ def main():
         with st.form("Comments on This Issue:"):
             # Add form components
             issue_id = st.text_input("Input Issue Id:", max_chars=20)
-            comments_submitted = st.form_submit_button("comments_of_an_issue_submit")
+            comments_submitted = st.form_submit_button("Comments on This Issue")
         if comments_submitted:
             # Specify the column and the target value for filtering
             column_to_filter = 'issue_id'
