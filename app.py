@@ -330,9 +330,14 @@ def main():
             # key='download_button_issues'
         )
 
+        st.subheader('Annotated Issues')
+        st.table(all_issues)
+
         all_comments= db.get_all_annotated_comments()
         all_comments = pd.DataFrame(all_comments[0], columns=all_comments[1])
-        csv_data_comments = all_comments.to_csv(index=False).encode('utf-8')
+        filtered_df = df_comments[['comment_id', 'comment_body']]
+        merged_df = pd.merge(all_comments, filtered_df, on='comment_id', how='left')
+        csv_data_comments = merged_df.to_csv(index=False).encode('utf-8')
         st.download_button(
             label="Download annodated comments",
             data=csv_data_comments,
@@ -340,10 +345,8 @@ def main():
             # key='download_button_comments'
         )
 
-        st.subheader('Annotated Issues')
-        st.table(all_issues)
-        # st.subheader('Annotated Comments')
-        # st.table(all_comments)
+        st.subheader('All Comments')
+        st.table(merged_df)
 
 
     else:
