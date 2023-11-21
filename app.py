@@ -281,6 +281,7 @@ def instructions():
 
 
 def main():
+    st.set_page_config(layout="wide")
     inject_css()
     print("logged in state: ", st.session_state.logged_in)
     logged_in = st.session_state.logged_in
