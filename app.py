@@ -326,8 +326,8 @@ def main():
             try:
                 results = db.execute_query(sql)
                 st.table(results)
-            except:
-                st.success(f"Error with query: {sql}")
+            except Exception as e:
+                st.success(f"Error with query: {e}")
 
     elif st.session_state.user_login == 'db_admin':
         with open("annotation.db", "rb") as fp:

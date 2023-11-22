@@ -52,16 +52,10 @@ class Database:
 
     def execute_query(self, query):
         c = self.conn.cursor()
-
-        try:
-            c.execute(query)
-            results = c.fetchall()
-            c.commit()
-            return results
-        except Exception as e:
-            c.rollback()
-            print(f"Error executing query: {e}")
-            return "Error executing query"
+        c.execute(query)
+        results = c.fetchall()
+        c.commit()
+        return results
 
     def close(self):
         self.conn.close()
