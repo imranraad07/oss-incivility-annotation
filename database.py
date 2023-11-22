@@ -49,6 +49,20 @@ class Database:
         self.conn.commit()
         return c.lastrowid
 
+
+    def execute_query(self, query):
+        c = self.conn.cursor()
+
+        try:
+            c.execute(query)
+            results = c.fetchall()
+            c.commit()
+            return results
+        except Exception as e:
+            c.rollback()
+            print(f"Error executing query: {e}")
+            return "Error executing query"
+
     def close(self):
         self.conn.close()
 

@@ -324,7 +324,7 @@ def main():
         if submitted:
             sql = sql.strip().lower()
             try:
-                results = db.execute(sql)
+                results = db.execute_query(sql)
                 st.table(results)
             except:
                 st.success(f"Error with query: {sql}")
