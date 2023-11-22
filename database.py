@@ -49,14 +49,6 @@ class Database:
         self.conn.commit()
         return c.lastrowid
 
-
-    def execute_query(self, query):
-        c = self.conn.cursor()
-        c.execute(query)
-        results = c.fetchall()
-        c.commit()
-        return results
-
     def close(self):
         self.conn.close()
 

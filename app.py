@@ -314,20 +314,6 @@ def main():
                     elif is_admin == 1:
                         logged_in = 1
                         st.rerun()
-    elif st.session_state.user_login == 'db_privilege':
-        st.subheader('Input SQL:')
-        # Use st.form to create a form
-        with st.form("sql_form_all"):
-            # Add form components
-            sql = st.text_input("Input SQL:", max_chars=1000)
-            submitted = st.form_submit_button("Submit")
-        if submitted:
-            sql = sql.strip().lower()
-            try:
-                results = db.execute_query(sql)
-                st.table(results)
-            except Exception as e:
-                st.success(f"Error with query: {e}")
 
     elif st.session_state.user_login == 'db_admin':
         with open("annotation.db", "rb") as fp:
