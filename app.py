@@ -343,8 +343,8 @@ def main():
                 try:
                     results = db.select(sql)
                     st.table(results)
-                except:
-                    st.success(f"Error with query: {sql}")
+                except Exception as e:
+                    st.success(f"Error with query: {sql}, Exception: {e}")
             else:
                 st.success(f"Not a select query: {sql}")
 
