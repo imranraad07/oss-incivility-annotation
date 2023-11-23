@@ -50,7 +50,8 @@ def next():
 
 
 def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
-    print(f"{st.session_state.counter}, {st.session_state.disable_counter}, {len(st.session_state.toxic_selection_done)}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
+    current_time = datetime.now().strftime("%H:%M:%S")
+    print(f"{current_time}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
 
     if st.session_state.disable_counter < len(st.session_state.tbdf_selection_done):
         st.session_state.tbdf_selection_done[st.session_state.disable_counter] = True
@@ -68,10 +69,9 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
 
-def next_issue(user_login, issue_id, derailment_point, trigger, target, consequences,
-               additional_comments):
-
-    print(f"{st.session_state.counter}, {issue_id}, {derailment_point}, {user_login}, {trigger}, {target}, {consequences}, {additional_comments}")
+def next_issue(user_login, issue_id, derailment_point, trigger, target, consequences, additional_comments):
+    current_time = datetime.now().strftime("%H:%M:%S")
+    print(f"{current_time}, {issue_id}, {derailment_point}, {user_login}, {trigger}, {target}, {consequences}, {additional_comments}")
 
     st.session_state.counter += 1
     st.session_state.issue_level = 1
@@ -95,10 +95,9 @@ def next_issue(user_login, issue_id, derailment_point, trigger, target, conseque
 
     st.components.v1.html(js)
 
-def finish_annotation(user_login, issue_id, derailment_point, trigger, target, consequences,
-               additional_comments):
-
-    print(f"{st.session_state.counter}, {issue_id}, {derailment_point}, {user_login}, {trigger}, {target}, {consequences}, {additional_comments}")
+def finish_annotation(user_login, issue_id, derailment_point, trigger, target, consequences, additional_comments):
+    current_time = datetime.now().strftime("%H:%M:%S")
+    print(f"{current_time}, {issue_id}, {derailment_point}, {user_login}, {trigger}, {target}, {consequences}, {additional_comments}")
 
     st.session_state.counter += 1
     st.session_state.issue_level = 1
@@ -124,8 +123,8 @@ def finish_annotation(user_login, issue_id, derailment_point, trigger, target, c
 
 
 def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
-    # st.session_state.counter += 1
-    print(f"{st.session_state.counter}, {st.session_state.disable_counter}, {len(st.session_state.toxic_selection_done)}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
+    current_time = datetime.now().strftime("%H:%M:%S")
+    print(f"{current_time}, {issue_id}, {comment_id}, {user_login}, {tbdf}, {toxic}")
 
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
 
