@@ -62,7 +62,7 @@ def insert_comment(issue_id, comment_id, user_login, tbdf, toxic):
 
     if toxic == "Yes":
         if st.session_state.toxic_comment_idx == 0:
-            print(f"Setting the toxic idx at {st.session_state.disable_counter}, total count: {st.session_state.counter}, comment count: {len(st.session_state.comments_on_screen)}")
+            # print(f"Setting the toxic idx at {st.session_state.disable_counter}, total count: {st.session_state.counter}, comment count: {len(st.session_state.comments_on_screen)}")
             st.session_state.toxic_comment_idx = st.session_state.disable_counter
 
     db.insert_comment_annotation(issue_id, comment_id, user_login, tbdf, toxic)
@@ -110,7 +110,7 @@ def finish_annotation(user_login, issue_id, derailment_point, trigger, target, c
                                additional_comments)
   
     current_annotation_id = db.currently_annotating(st.session_state.user_login)[0]
-    print(current_annotation_id)
+    # print(current_annotation_id)
     db.current_issue_done(current_annotation_id)
     db.update_annotation_count(user_login)
 
@@ -142,7 +142,7 @@ def next_issue_level(issue_id, comment_id, user_login, tbdf, toxic):
     st.session_state.disable_counter = 0
 
 def end_annotation(user):
-    print(user)
+    # print(user)
     db.update_wrap_annotaion(user)
 
 def prev():
@@ -283,7 +283,7 @@ def instructions():
 def main():
     st.set_page_config(layout="wide")
     inject_css()
-    print("logged in state: ", st.session_state.logged_in)
+    # print("logged in state: ", st.session_state.logged_in)
     logged_in = st.session_state.logged_in
     user_login = ''
     if not logged_in:
@@ -410,10 +410,9 @@ def main():
                 print(f"currently_annotating_issue_id is None")
             else:
                 currently_annotating_issue_id = currently_annotating_issue_id[0]
-                print(f"currently_annotating_issue_id: {currently_annotating_issue_id}")
+                # print(f"currently_annotating_issue_id: {currently_annotating_issue_id}")
 
-
-            print("current issue:", currently_annotating_issue_id)
+            # print("current issue:", currently_annotating_issue_id)
             st.session_state.issue_id = currently_annotating_issue_id
             while True:
                 comment = my_comments[st.session_state.counter % (len(my_comments))]
@@ -440,7 +439,7 @@ def main():
                 st.session_state.comments_on_screen.append(comment)
                 st.session_state.tbdf_selection_done.append(False)
                 st.session_state.toxic_selection_done.append(False)
-            print(len(st.session_state.comments_on_screen))
+            # print(len(st.session_state.comments_on_screen))
 
             with st.sidebar:
                 
@@ -543,7 +542,7 @@ def main():
                 # upto_comment = len(st.session_state.comments_on_screen)
                 if st.session_state.toxic_comment_idx > 0:
                     upto_comment = st.session_state.toxic_comment_idx - 1
-                print("upto_comment:", upto_comment, "toxic_comment_idx:", st.session_state.toxic_comment_idx)
+                # print("upto_comment:", upto_comment, "toxic_comment_idx:", st.session_state.toxic_comment_idx)
 
                 if upto_comment > len(st.session_state.comments_on_screen):
                     upto_comment = len(st.session_state.comments_on_screen)
@@ -578,7 +577,7 @@ def main():
                 additional_comments = st.text_input('Additional Comments', key='additional_comments' + str(st.session_state.issue_id))
                 if st.session_state.issue_level == 0:
                     total_annotated_issues = db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
-                    print(f"total_annotated_issues: {total_annotated_issues}")
+                    # print(f"total_annotated_issues: {total_annotated_issues}")
                     if total_annotated_issues < 19:
                         if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
                             next_issue_disabled = False

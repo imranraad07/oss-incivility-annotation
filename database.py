@@ -36,6 +36,11 @@ class Database:
                 is_annotating INTEGER not null, \
                 annotating_by TEXT);"
         )
+        # Execute the SQL statement to add a unique constraint
+        c.execute('''
+            CREATE UNIQUE INDEX IF NOT EXISTS unique_comment_user
+            ON annotated_comments (comment_id, user_login)
+        ''')
 
 
     def select(self, sql, parameters=[]):
@@ -173,10 +178,21 @@ class Database:
         return data, columns
 
     def insert_comment_annotation(self, issue_id, comment_id, user_login, tbdf, toxic):
-        return self.execute(
-            "INSERT INTO annotated_comments (issue_id, comment_id, user_login, tbdf, toxic) VALUES (?, ?, ?, ?, ?)",
-            [issue_id, comment_id, user_login, tbdf, toxic],
-        )
+        c = self.conn.cursor()
+        c.execute('''
+            INSERT INTO annotated_comments (issue_id, comment_id, user_login, tbdf, toxic)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(comment_id, user_login) DO UPDATE
+            SET issue_id = excluded.issue_id, tbdf = excluded.tbdf, toxic = excluded.toxic
+        ''', (issue_id, comment_id, user_login, tbdf, toxic))
+
+        # Commit the changes and close the connection
+        self.conn.commit()
+
+        # return self.execute(
+        #     "INSERT INTO annotated_comments (issue_id, comment_id, user_login, tbdf, toxic) VALUES (?, ?, ?, ?, ?)",
+        #     [issue_id, comment_id, user_login, tbdf, toxic],
+        # )
 
     def insert_issue_annotation(self, issue_id, user_login, derailment_point, trigger, target, consequences, additional_comments):
         return self.execute(
