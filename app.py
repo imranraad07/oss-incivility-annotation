@@ -454,7 +454,7 @@ def main():
                 
                 annotated = db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
 
-                progress_text = f"Number of issues annotated: {annotated}\n\n Number of issues remaining: {20 - annotated}"
+                progress_text = f"Number of issues annotated: {annotated}\n\n Number of issues remaining: {30 - annotated}"
                 progress_text = progress_text + "\n\n Comments remaining in this issue"
 
                 total_comments_counter = (df_comments['issue_id'] == st.session_state.issue_id).sum()
@@ -463,7 +463,8 @@ def main():
                     percent = (len(st.session_state.comments_on_screen)) / total_comments_counter
                     if percent == 1:
                         progress_text = "Comments completed!"
-                    my_bar.progress((len(st.session_state.comments_on_screen)) / total_comments_counter, progress_text)
+                    else:
+                        my_bar.progress((len(st.session_state.comments_on_screen)) / total_comments_counter, progress_text)
                 st.write(instructions())
 
             toxic_must_select = False
@@ -587,7 +588,7 @@ def main():
                 if st.session_state.issue_level == 0:
                     total_annotated_issues = db.get_number_of_issues_annotated_by_user(st.session_state.user_login)
                     # print(f"total_annotated_issues: {total_annotated_issues}")
-                    if total_annotated_issues < 19:
+                    if total_annotated_issues < 29:
                         if str(option_trigger) != '' and str(option_target) != '' and option_consequences != []:
                             next_issue_disabled = False
                         st.button("Next Issue ✅", disabled=next_issue_disabled,
