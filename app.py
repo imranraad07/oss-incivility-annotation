@@ -276,8 +276,18 @@ def instructions():
     **Accepting criticism**: they accept the criticisms instead of closing/locking the issue, or discontinuing further discussion
     
     **Trying to stop the incivility**: actively trying to put a stop to incivility, but not necessarily invoking Code of Conduct
-    '''
 
+    
+    ## Derailment Point and Toxicity:
+    _______
+    *Derailment comment must occur **before** Toxic comment. However, it is also possible that Toxicity can occur **spontaneously** without a derailment point.*
+    _______
+
+    **Derailment Point:** The comment where the conversation shifts away from discussing the technical details relevant to the issue/PR. The derailment point marks the transition from civil, productive discussion to toxic behavior. It is the pivotal comment where the conversational tone deteriorates. The derailment point itself may not necessarily contain toxic language, but it triggers the downstream toxic comments. 
+
+    **Toxicity:** Abusive language that derails constructive discussion. This generally occur after the derailment point and includes personal attacks, threats, harassment, discrimination, trolling etc. Toxicity is defined by “any rude, disrespectful, or unreasonable comment that is likely to make one leave a discussion.
+   
+    '''
 
 def main():
     st.set_page_config(layout="wide")
