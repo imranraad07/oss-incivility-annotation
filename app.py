@@ -369,18 +369,14 @@ def main():
 
         all_comments= db.get_all_annotated_comments()
         all_comments = pd.DataFrame(all_comments[0], columns=all_comments[1])
-        filtered_df = df_comments[['comment_id', 'comment_body']]
-        merged_df = pd.merge(all_comments, filtered_df, on='comment_id', how='left')
-        csv_data_comments = merged_df.to_csv(index=False).encode('utf-8')
+        # filtered_df = df_comments[['comment_id', 'comment_body']]
+        # merged_df = pd.merge(all_comments, filtered_df, on='comment_id', how='left')
+        csv_data_comments = all_comments.to_csv(index=False).encode('utf-8')
         st.download_button(
             label="Download annodated comments",
             data=csv_data_comments,
             file_name='annotated_comments.csv',
-            # key='download_button_comments'
         )
-
-        st.subheader('Annotated Issues')
-        st.table(all_issues)
 
         with st.form("Comments on This Issue:"):
             issue_id = st.text_input("Input Issue Id:", max_chars=20)
@@ -389,10 +385,28 @@ def main():
             try:
                 column_to_filter = 'issue_id'
                 target_value = int(issue_id)
-                filtered_rows = merged_df[merged_df[column_to_filter] == target_value]
+                filtered_rows = all_comments[all_comments[column_to_filter] == target_value]
                 st.table(filtered_rows)
             except:
                 st.success(f"Error with Issue Id: {issue_id}")
+
+
+        with st.form("Annotated Comment:"):
+            comment_id = st.text_input("Input Comment Id:", max_chars=20)
+            comments_submitted = st.form_submit_button("Annotated Comment")
+        if comments_submitted:
+            try:
+                column_to_filter = 'comment_id'
+                target_value = int(comment_id)
+                filtered_rows = all_comments[all_comments[column_to_filter] == target_value]
+                st.table(filtered_rows)
+            except:
+                st.success(f"Error with Comment Id: {comment_id}")
+
+
+        st.subheader('Annotated Issues')
+        st.table(all_issues)
+
 
         # st.subheader('All Comments')
         # st.table(merged_df)
