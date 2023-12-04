@@ -22,7 +22,6 @@ class Database:
         c.execute(
             "CREATE TABLE IF NOT EXISTS annotated_issues(id INTEGER PRIMARY KEY, \
                 issue_id INTEGER not null, \
-                user_login TEXT not null, \
                 derailment_point TEXT not null, \
                 trigger TEXT not null, \
                 target TEXT not null, \
@@ -36,12 +35,6 @@ class Database:
                 is_annotating INTEGER not null, \
                 annotating_by TEXT);"
         )
-        # Execute the SQL statement to add a unique constraint
-        c.execute('''
-            CREATE UNIQUE INDEX IF NOT EXISTS unique_comment_user
-            ON annotated_comments (comment_id, user_login)
-        ''')
-
 
     def select(self, sql, parameters=[]):
         c = self.conn.cursor()
@@ -180,11 +173,11 @@ class Database:
     def insert_comment_annotation(self, issue_id, comment_id, user_login, tbdf, toxic):
         c = self.conn.cursor()
         c.execute('''
-            INSERT INTO annotated_comments (issue_id, comment_id, user_login, tbdf, toxic)
-            VALUES (?, ?, ?, ?, ?)
-            ON CONFLICT(comment_id, user_login) DO UPDATE
+            INSERT INTO annotated_comments (issue_id, comment_id, tbdf, toxic)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(comment_id) DO UPDATE
             SET issue_id = excluded.issue_id, tbdf = excluded.tbdf, toxic = excluded.toxic
-        ''', (issue_id, comment_id, user_login, tbdf, toxic))
+        ''', (issue_id, comment_id, tbdf, toxic))
 
         # Commit the changes and close the connection
         self.conn.commit()
